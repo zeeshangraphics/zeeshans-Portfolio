@@ -43,7 +43,7 @@ export const ManagePhotos = () => {
   return (
     <div className="flex">
       <AdminSidebar />
-      <main className="ml-64 flex-1 p-8">
+      <main className="lg:ml-64 pt-24 lg:pt-12 flex-1 p-8">
         <h1 className="text-5xl font-bold mb-8 text-center text-gray-700">
           Manage Photos
         </h1>

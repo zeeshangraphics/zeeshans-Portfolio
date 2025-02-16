@@ -1,4 +1,3 @@
-// src/admin/pages/Login.js
 import React, { useState } from "react";
 import { useAuth } from "../context/auth.context";
 

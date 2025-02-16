@@ -25,13 +25,13 @@ export const Dashboard = () => {
     <div className="flex min-h-screen bg-gray-50">
       <AdminSidebar />
 
-      <div className="ml-64 flex-1">
+      <div className="lg:ml-64 flex-1">
         {/* Hero Section */}
         <div
           className="relative h-[607px] bg-cover bg-center"
           style={{
             backgroundImage:
-              'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDgLaWpeeAW0Es4vuAbR6bowp9sF3VeeOOow&s")',
+              'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlG7YwzX3hHDrYXSrJiNHdm_oYL1WsIulNfQ&s")',
           }}
         >
           <div className="absolute inset-0 bg-black opacity-50"></div>

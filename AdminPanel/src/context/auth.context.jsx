@@ -21,6 +21,7 @@ export const AuthProvider = ({ children }) => {
       }
     } catch (error) {
       console.error("Session check error:", error);
+      setUser(null);
     }
     setLoading(false);
   };

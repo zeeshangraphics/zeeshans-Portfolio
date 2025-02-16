@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { photoService } from "../services/photo.services";
 import { X } from "lucide-react";
 
@@ -11,6 +11,9 @@ export const PhotoForm = ({ onSuccess, editingPhoto, onCancel }) => {
     category: "",
     image: null,
   });
+
+  // Add a ref for the file input
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     if (editingPhoto) {
@@ -56,6 +59,11 @@ export const PhotoForm = ({ onSuccess, editingPhoto, onCancel }) => {
         image: null,
       });
 
+      // Reset file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+
       if (onSuccess) onSuccess();
     } catch (error) {
       console.error("Form submission error:", error);
@@ -77,6 +85,11 @@ export const PhotoForm = ({ onSuccess, editingPhoto, onCancel }) => {
         <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
           {editingPhoto ? "Edit Photo" : "Upload New Photo"}
         </h2>
+        {error && (
+          <div className="mb-4 p-2 bg-red-100 text-red-700 rounded">
+            {error}
+          </div>
+        )}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium mb-1 text-gray-700">
@@ -129,7 +142,15 @@ export const PhotoForm = ({ onSuccess, editingPhoto, onCancel }) => {
             <label className="block text-sm font-medium mb-1 text-gray-700">
               Photo
             </label>
+            {editingPhoto && (
+              <div className="mb-2 text-sm text-gray-600">
+                {formData.image
+                  ? "New image selected"
+                  : "Current image will be kept if no new image is selected"}
+              </div>
+            )}
             <input
+              ref={fileInputRef}
               type="file"
               accept="image/*"
               onChange={handleFileChange}
