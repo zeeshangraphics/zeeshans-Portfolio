@@ -47,7 +47,11 @@ const AboutPage = () => {
             {/* Specializations Section */}
             <div className="space-y-4">
               <div className="space-y-4">
-                <h1 className="text-3xl lg:text-4xl font-medium text-black">
+                <h1
+                  className={`text-3xl lg:text-4xl font-medium ${
+                    isDark ? "text-white" : "text-black"
+                  }`}
+                >
                   Specializations
                 </h1>
                 <div
@@ -78,7 +82,11 @@ const AboutPage = () => {
             {/* Awards Section */}
             <div className="space-y-4">
               <div className="space-y-4">
-                <h1 className="text-3xl lg:text-4xl font-medium text-black">
+                <h1
+                  className={`text-3xl lg:text-4xl font-medium ${
+                    isDark ? "text-white" : "text-black"
+                  }`}
+                >
                   Recognition & Awards
                 </h1>
                 <div
