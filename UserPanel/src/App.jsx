@@ -1,10 +1,15 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
 import ContactPage from "./pages/ContactPage";
 import SocialSidebar from "./components/Sidebar";
 import AboutPage from "./pages/AboutPage";
-import GalleryPage from "./pages/Gallery";
+import PortfolioPage from "./pages/PortfolioPage";
 import { ThemeProvider } from "./context/ThemeContext";
 
 function App() {
@@ -20,7 +25,15 @@ function App() {
               <Route path="/home" element={<HomePage />} />
               <Route path="/" element={<HomePage />} />
               <Route path="/about" element={<AboutPage />} />
-              <Route path="/gallery" element={<GalleryPage />} />
+              <Route path="/portfolio/:category" element={<PortfolioPage />} />
+              <Route
+                path="/portfolio"
+                element={<Navigate to="/portfolio/branding" />}
+              />
+              <Route
+                path="/gallery"
+                element={<Navigate to="/portfolio/branding" />}
+              />
             </Routes>
           </div>
         </div>

@@ -1,116 +1,120 @@
-import { databases, storage } from "../appwrite/config";
-import { ID } from "appwrite";
+import { databases, storage, appwriteConfig } from '../appwrite/config';
+import { ID, Query } from 'appwrite';
 
 export const photoService = {
-  async uploadPhoto(file, title, description, category, editingPhoto = null) {
+  /**
+   * Upload a new photo or update an existing one
+   */
+  uploadPhoto: async (file, title, category, editingPhoto = null) => {
     try {
-      let uniqueId = editingPhoto ? editingPhoto.$id : ID.unique();
       let storageFileId = null;
+      let imageUrl = null;
 
-      // Handle file upload
+      // If we're uploading a new image file
       if (file) {
-
+        // If we're editing and there's an existing file, delete it first
         if (editingPhoto && editingPhoto.storageFileId) {
           try {
             await storage.deleteFile(
-              import.meta.env.VITE_APPWRITE_BUCKET_ID,
+              appwriteConfig.bucketId,
               editingPhoto.storageFileId
             );
-          } catch (deleteError) {
-            console.error("Failed to delete old file:", deleteError);
+          } catch (error) {
+            console.error("Error deleting old file:", error);
+            // Continue anyway - we'll just create a new file
           }
         }
 
-        // Upload new file
-        try {
-          const uploadedFile = await storage.createFile(
-            import.meta.env.VITE_APPWRITE_BUCKET_ID,
-            uniqueId,
-            file
-          );
-          storageFileId = uploadedFile.$id;
-        } catch (uploadError) {
-          console.error("File upload failed:", uploadError);
-          throw new Error(`File upload failed: ${uploadError.message}`);
-        }
+        // Upload the new file
+        const uploadedFile = await storage.createFile(
+          appwriteConfig.bucketId,
+          ID.unique(),
+          file
+        );
+
+        storageFileId = uploadedFile.$id;
+
+        // Get the file view URL
+        imageUrl = storage.getFileView(
+          appwriteConfig.bucketId,
+          storageFileId
+        );
       } else if (editingPhoto) {
+        // Keep existing file references if editing but no new file was uploaded
         storageFileId = editingPhoto.storageFileId;
+        imageUrl = editingPhoto.imageUrl;
       }
 
-      // Prepare photo data
       const photoData = {
         title,
-        description,
         category,
-        storageFileId: storageFileId,
-        imageUrl: storageFileId 
-          ? `${import.meta.env.VITE_APPWRITE_URL}/storage/buckets/${
-              import.meta.env.VITE_APPWRITE_BUCKET_ID
-            }/files/${storageFileId}/view?project=${
-              import.meta.env.VITE_APPWRITE_PROJECT
-            }`
-          : editingPhoto?.imageUrl 
+        storageFileId,
+        imageUrl,
       };
 
       if (editingPhoto) {
-        const updated = await databases.updateDocument(
-          import.meta.env.VITE_APPWRITE_DATABASE_ID,
-          import.meta.env.VITE_APPWRITE_COLLECTION_ID,
-          uniqueId,
+        // Update existing document
+        return await databases.updateDocument(
+          appwriteConfig.databaseId,
+          appwriteConfig.domainCollectionId,
+          editingPhoto.$id,
           photoData
         );
-        return updated;
       } else {
-        if (!storageFileId) {
-          throw new Error("New photos must include an image file");
-        }
-        const created = await databases.createDocument(
-          import.meta.env.VITE_APPWRITE_DATABASE_ID,
-          import.meta.env.VITE_APPWRITE_COLLECTION_ID,
-          uniqueId,
+        // Create new document
+        return await databases.createDocument(
+          appwriteConfig.databaseId,
+          appwriteConfig.domainCollectionId,
+          ID.unique(),
           photoData
         );
-        return created;
       }
     } catch (error) {
-      console.error("Photo upload error:", error);
+      console.error("Error in uploadPhoto:", error);
       throw error;
     }
   },
 
-  async getPhotos() {
+  /**
+   * Get all photos
+   */
+  getPhotos: async () => {
     try {
       const response = await databases.listDocuments(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
-        import.meta.env.VITE_APPWRITE_COLLECTION_ID
+        appwriteConfig.databaseId,
+        appwriteConfig.domainCollectionId,
+        [Query.orderDesc('$createdAt')]
       );
+      
       return response.documents;
     } catch (error) {
-      console.error("Get photos error:", error);
+      console.error("Error in getPhotos:", error);
       throw error;
     }
   },
 
-  async deletePhoto(photoId, storageFileId) {
+  /**
+   * Delete a photo and its associated file from storage
+   */
+  deletePhoto: async (documentId, storageFileId) => {
     try {
-      if (storageFileId) {
-        try {
-          await storage.deleteFile(
-            import.meta.env.VITE_APPWRITE_BUCKET_ID,
-            storageFileId
-          );
-        } catch (deleteError) {
-          console.warn("Failed to delete file:", deleteError);
-        }
-      }
-
+      // Delete the document from the database
       await databases.deleteDocument(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
-        import.meta.env.VITE_APPWRITE_COLLECTION_ID,
-        photoId
+        appwriteConfig.databaseId,
+        appwriteConfig.domainCollectionId,
+        documentId
       );
+
+      // If there's an associated file, delete it from storage
+      if (storageFileId) {
+        await storage.deleteFile(
+          appwriteConfig.bucketId,
+          storageFileId
+        );
+      }
     } catch (error) {
+      console.error("Error in deletePhoto:", error);
       throw error;
     }
-  },
+  }
 };

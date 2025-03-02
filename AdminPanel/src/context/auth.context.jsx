@@ -1,8 +1,16 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { account } from "../appwrite/config";
 import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+};
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -10,30 +18,32 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    checkUser();
+    checkAuth();
   }, []);
 
-  const checkUser = async () => {
+  const checkAuth = async () => {
     try {
-      const session = await account.getSession("current");
-      if (session) {
-        setUser(session);
-      }
+      const session = await account.get();
+      setUser(session);
     } catch (error) {
-      console.error("Session check error:", error);
       setUser(null);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const login = async (email, password) => {
     try {
       await account.createEmailPasswordSession(email, password);
-      const session = await account.getSession("current");
+      const session = await account.get();
       setUser(session);
-      navigate("/admin/dashboard");
+      navigate("/");
+      return { success: true };
     } catch (error) {
-      throw error;
+      return {
+        success: false,
+        error: error.message || "Failed to login",
+      };
     }
   };
 
@@ -41,17 +51,22 @@ export const AuthProvider = ({ children }) => {
     try {
       await account.deleteSession("current");
       setUser(null);
-      navigate("/admin/login");
+      navigate("/login");
     } catch (error) {
-      console.error("Logout error:", error);
+      console.error("Logout failed:", error);
     }
   };
 
+  const value = {
+    user,
+    loading,
+    login,
+    logout,
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading }}>
+    <AuthContext.Provider value={value}>
       {!loading && children}
     </AuthContext.Provider>
   );
 };
-
-export const useAuth = () => useContext(AuthContext);

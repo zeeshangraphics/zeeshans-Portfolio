@@ -1,110 +1,96 @@
-import React from "react";
+import React, { useState } from "react";
 import SocialSidebar from "../components/Sidebar";
 import Swal from "sweetalert2";
 import { useTheme } from "../context/ThemeContext";
 
 const ContactPage = () => {
-  const { isDark } = useTheme();
+  const { isDark, toggleTheme } = useTheme();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
+    setIsSubmitting(true);
 
+    const formData = new FormData(event.target);
     formData.append("access_key", "6ac0c56b-a72f-4c05-ac07-e6b69a934d81");
 
     const object = Object.fromEntries(formData);
     const json = JSON.stringify(object);
 
-    const res = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: json,
-    }).then((res) => res.json());
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: json,
+      }).then((res) => res.json());
 
-    if (res.success) {
+      if (res.success) {
+        Swal.fire({
+          title:
+            "<h2 style='font-size: 1.2rem; margin-bottom: 10px;'>Message sent successfully!</h2>",
+          icon: "success",
+          draggable: true,
+          width: "300px",
+        });
+        event.target.reset();
+      }
+    } catch (error) {
       Swal.fire({
         title:
-          "<h2 style='font-size: 1.2rem; margin-bottom: 10px;'>Message sent successfully!</h2>",
-        icon: "success",
+          "<h2 style='font-size: 1.2rem; margin-bottom: 10px;'>Something went wrong!</h2>",
+        icon: "error",
         draggable: true,
         width: "300px",
       });
+    } finally {
+      setIsSubmitting(false);
     }
-    event.target.reset();
   };
 
   return (
-    <div
-      className={`min-h-screen lg:pt-16 relative ${
-        isDark ? "bg-[#0C0C0C]" : "bg-white"
-      }`}
-    >
+    <div className="min-h-screen lg:pt-16 relative">
       <SocialSidebar />
       <div className="max-w-screen-xl mx-auto px-4 py-16">
         <form onSubmit={onSubmit} className="grid md:grid-cols-2 gap-16">
           {/* Contact Information */}
           <div className="space-y-8">
-            <h1
-              className={`text-5xl lg:text-6xl ${
-                isDark ? "text-white" : "text-black"
-              }`}
-            >
-              Contact Me
-            </h1>
-            <div
-              className={`h-px w-auto opacity-50 ${
-                isDark ? "bg-white" : "bg-black"
-              }`}
-            ></div>
-            <h2
-              className={`text-2xl font-semibold ${
-                isDark ? "text-white" : "text-black"
-              }`}
-            >
-              Get in touch
-            </h2>
+            <div className="flex justify-between items-center">
+              <h1 className="text-5xl lg:text-6xl font-bold">Contact Me</h1>
+            </div>
+
+            <div className="divider"></div>
+
+            <h2 className="text-2xl font-semibold">Get in touch</h2>
 
             <div className="space-y-4">
               <div>
-                <p className={isDark ? "text-gray-400" : "text-gray-600"}>
-                  Email:
-                </p>
+                <p className="opacity-80">Email:</p>
                 <a
-                  href="mailto:name@domain.com"
-                  className={`${
-                    isDark
-                      ? "text-white hover:text-gray-300"
-                      : "text-black hover:text-gray-600"
-                  }`}
+                  href="mailto:info.muhammadzeeshan53@gmail.com"
+                  className="hover:text-accent-primary"
                 >
-                  name@domain.com
+                  info.muhammadzeeshan53@gmail.com
                 </a>
               </div>
 
               <div>
-                <p className={isDark ? "text-gray-400" : "text-gray-600"}>
-                  Phone:
-                </p>
+                <p className="opacity-80">Phone:</p>
                 <a
-                  href="tel:(555)123-4567"
-                  className={`${
-                    isDark
-                      ? "text-white hover:text-gray-300"
-                      : "text-black hover:text-gray-600"
-                  }`}
+                  href="tel:(+92) 370 4016847"
+                  className="hover:text-accent-primary"
                 >
-                  (555)123-4567
+                  (+92) 370 4016847
                 </a>
               </div>
             </div>
 
-            <p className={isDark ? "text-gray-300" : "text-gray-700"}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
-              vehicula eu nunc et sollicitudin. Cras pulvinar, nisi at imperdiet
-              pharetra.
+            <p>
+              Let's bring your creative vision to life. Whether you need
+              branding, web design, or a complete visual identity, I'm here to
+              help you stand out in today's competitive market.
             </p>
           </div>
 
@@ -112,30 +98,10 @@ const ContactPage = () => {
           <div className="space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Name"
-                  className={`w-full p-3 border bg-transparent placeholder-gray-500 focus:ring-2 focus:ring-gray-400 focus:border-transparent ${
-                    isDark
-                      ? "border-white text-white"
-                      : "border-black text-black"
-                  }`}
-                  required
-                />
+                <input type="text" name="name" placeholder="Name" required />
               </div>
               <div>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  className={`w-full p-3 border bg-transparent placeholder-gray-500 focus:ring-2 focus:ring-gray-400 focus:border-transparent ${
-                    isDark
-                      ? "border-white text-white"
-                      : "border-black text-black"
-                  }`}
-                  required
-                />
+                <input type="email" name="email" placeholder="Email" required />
               </div>
             </div>
 
@@ -144,22 +110,19 @@ const ContactPage = () => {
                 name="message"
                 placeholder="Message"
                 rows="5"
-                className={`w-full p-3 border bg-transparent placeholder-gray-500 focus:ring-2 focus:ring-gray-400 focus:border-transparent ${
-                  isDark ? "border-white text-white" : "border-black text-black"
-                }`}
                 required
               ></textarea>
             </div>
 
             <button
               type="submit"
-              className={`px-6 py-2 transition-colors ${
-                isDark
-                  ? "text-white hover:bg-white hover:text-black border border-white"
-                  : "text-black hover:bg-black hover:text-white border border-black"
-              }`}
+              className="btn flex items-center justify-center"
+              disabled={isSubmitting}
             >
-              Send
+              {isSubmitting ? (
+                <span className="inline-block w-5 h-5 border-2 border-transparent border-t-current border-l-current rounded-full animate-spin mr-2"></span>
+              ) : null}
+              {isSubmitting ? "Sending..." : "Send Message"}
             </button>
           </div>
         </form>

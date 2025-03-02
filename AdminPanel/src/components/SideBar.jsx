@@ -12,7 +12,7 @@ export const AdminSidebar = () => {
 
   const menuItems = [
     { title: "Dashboard", path: "/admin/dashboard", icon: Home },
-    { title: "Manage Photos", path: "/admin/photos", icon: Images },
+    { title: "Manage Photos", path: "/admin/manage-photos", icon: Images },
   ];
 
   const handleAddPhotosClick = () => {

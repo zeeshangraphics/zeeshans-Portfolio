@@ -7,7 +7,6 @@ export const PhotoForm = ({ onSuccess, editingPhoto, onCancel }) => {
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
     title: "",
-    description: "",
     category: "",
     image: null,
   });
@@ -19,7 +18,6 @@ export const PhotoForm = ({ onSuccess, editingPhoto, onCancel }) => {
     if (editingPhoto) {
       setFormData({
         title: editingPhoto.title || "",
-        description: editingPhoto.description || "",
         category: editingPhoto.category || "",
         image: null,
       });
@@ -47,14 +45,12 @@ export const PhotoForm = ({ onSuccess, editingPhoto, onCancel }) => {
       await photoService.uploadPhoto(
         formData.image,
         formData.title,
-        formData.description,
         formData.category,
         editingPhoto
       );
 
       setFormData({
         title: "",
-        description: "",
         category: "",
         image: null,
       });
@@ -107,20 +103,6 @@ export const PhotoForm = ({ onSuccess, editingPhoto, onCancel }) => {
           </div>
           <div>
             <label className="block text-sm font-medium mb-1 text-gray-700">
-              Description
-            </label>
-            <textarea
-              value={formData.description}
-              onChange={(e) =>
-                setFormData({ ...formData, description: e.target.value })
-              }
-              className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-gray-500 bg-white"
-              rows="4"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1 text-gray-700">
               Category
             </label>
             <select
@@ -132,10 +114,10 @@ export const PhotoForm = ({ onSuccess, editingPhoto, onCancel }) => {
               required
             >
               <option value="">Select a Category</option>
-              <option value="wedding">Wedding</option>
-              <option value="nature">Nature</option>
-              <option value="art">Art</option>
-              <option value="cars">Cars</option>
+              <option value="branding">Branding</option>
+              <option value="logo-design">Logo design</option>
+              <option value="social-media">Social media design</option>
+              <option value="poster-flyers">Poster and flyers</option>
             </select>
           </div>
           <div>

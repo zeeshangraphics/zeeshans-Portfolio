@@ -31,57 +31,18 @@ export const Dashboard = () => {
           className="relative h-[607px] bg-cover bg-center"
           style={{
             backgroundImage:
-              'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlG7YwzX3hHDrYXSrJiNHdm_oYL1WsIulNfQ&s")',
+              'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMrWY5evQ9f7w3UEUwjYQguLeR6to-WpldZQ&s")',
           }}
         >
           <div className="absolute inset-0 bg-black opacity-50"></div>
           <div className="relative z-10 flex flex-col justify-center items-center h-full text-white text-center px-4">
-            <h1 className="text-5xl font-bold mb-4">Photo Dashboard</h1>
+            <h1 className="text-5xl font-bold mb-4">My Dashboard</h1>
             <p className="text-xl max-w-2xl">
-              Here I explore, manage, and showcase my visual stories. Capture,
-              organize, and bring my memories to life.
+              Here I explore, manage, and showcase my graphic designing related
+              data.
             </p>
           </div>
         </div>
-
-        {/* Statistics Section */}
-        {/* <div className="container mx-auto px-4 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white shadow-md rounded-lg p-6 flex items-center space-x-4">
-              <Camera className="w-12 h-12 text-blue-500" />
-              <div>
-                <h3 className="text-xl font-semibold">
-                  {loading ? "Loading..." : photos.length}
-                </h3>
-                <p className="text-gray-500">Total Photos</p>
-              </div>
-            </div>
-
-            <div className="bg-white shadow-md rounded-lg p-6 flex items-center space-x-4">
-              <Image className="w-12 h-12 text-green-500" />
-              <div>
-                <h3 className="text-xl font-semibold">
-                  {loading
-                    ? "Loading..."
-                    : photos.filter((p) => p.type === "image").length}
-                </h3>
-                <p className="text-gray-500">Image Photos</p>
-              </div>
-            </div>
-
-            <div className="bg-white shadow-md rounded-lg p-6 flex items-center space-x-4">
-              <Upload className="w-12 h-12 text-purple-500" />
-              <div>
-                <h3 className="text-xl font-semibold">
-                  {loading
-                    ? "Loading..."
-                    : photos.filter((p) => p.isRecent).length}
-                </h3>
-                <p className="text-gray-500">Recently Uploaded</p>
-              </div>
-            </div>
-          </div>
-        </div> */}
       </div>
     </div>
   );
