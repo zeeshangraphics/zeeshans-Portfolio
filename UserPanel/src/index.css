@@ -3,166 +3,29 @@
 @tailwind utilities;
 
 :root {
-  /* Main Color Palette */
-  --color-cream: #f5f5dc;
-  --color-taupe: #b6a28e;
-  --color-sage: #dce4c9;
-  --color-orange: #e07b39;
-
-  /* Theme Variables - Light Mode */
-  --bg-main: var(--color-cream);
-  --text-primary: #594a3c;
-  --text-secondary: #6d5d4e;
-  --accent-primary: var(--color-orange);
-  --accent-secondary: var(--color-taupe);
-  --border-color: var(--color-taupe);
-  --form-bg: rgba(255, 255, 255, 0.4);
-  --form-border: var(--color-taupe);
-  --button-bg: transparent;
-  --button-text: var(--accent-primary);
-  --button-hover-bg: var(--accent-primary);
-  --button-hover-text: var(--bg-main);
-  --nav-sidebar-bg: var(--color-cream);
-  --nav-sidebar-icon: var(--color-taupe);
-  --nav-sidebar-icon-hover: var(--color-orange);
-  --divider: rgba(182, 162, 142, 0.5);
+  --font-display: "Poppins", "sans-serif";
+  --color-black: #121212;
+  --color-teal: #00e2a1;
+  --color-grey: #e0e0e0;
+  --color-dark-grey: #555555;
+  --bg-main: #f5f5f5;
+  --text-primary: var(--color-dark-grey);
+  --border-color: #e0e0e0;
 }
 
-/* Dark Mode Theme Variables */
 .dark-mode {
-  --bg-main: #3e3930;
-  --text-primary: var(--color-cream);
-  --text-secondary: #d1cfc7;
-  --accent-primary: var(--color-orange);
-  --accent-secondary: var(--color-taupe);
-  --border-color: var(--color-taupe);
-  --form-bg: rgba(0, 0, 0, 0.2);
-  --form-border: var(--color-taupe);
-  --button-bg: transparent;
-  --button-text: var(--accent-primary);
-  --button-hover-bg: var(--accent-primary);
-  --button-hover-text: var(--bg-main);
-  --nav-sidebar-bg: #3e3930;
-  --nav-sidebar-icon: var(--color-cream);
-  --nav-sidebar-icon-hover: var(--color-orange);
-  --divider: rgba(182, 162, 142, 0.3);
+  --bg-main: var(--color-black);
+  --text-primary: var(--color-grey);
+  --border-color: #2a2a2a;
 }
 
-/* Base styles */
 body {
-  margin: 0;
-  padding: 0;
-  font-family: "Inter", "Helvetica Neue", sans-serif;
+  font-family: "Inter", sans-serif;
   background-color: var(--bg-main);
   color: var(--text-primary);
   transition: all 0.3s ease;
 }
 
-/* Typography */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  color: var(--text-primary);
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-p,
-span,
-li {
-  color: var(--text-secondary);
-}
-
-a {
-  color: var(--text-primary);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-a:hover {
-  color: var(--accent-primary);
-}
-
-/* Button Styles */
-button,
-.btn {
-  padding: 0.75rem 1.5rem;
-  border: 1px solid var(--accent-primary);
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-button:hover,
-.btn:hover {
-  background-color: var(--button-hover-bg);
-  color: var(--button-hover-text);
-}
-
-/* Form Elements */
-input,
-textarea {
-  background-color: var(--form-bg);
-  border: 1px solid var(--form-border);
-  color: var(--text-primary);
-  padding: 0.75rem;
-  width: 100%;
-  transition: all 0.3s ease;
-}
-
-input:focus,
-textarea:focus {
-  outline: none;
-  border-color: var(--accent-primary);
-  box-shadow: 0 0 0 2px rgba(224, 123, 57, 0.2);
-}
-
-input::placeholder,
-textarea::placeholder {
-  color: var(--text-secondary);
-  opacity: 0.7;
-}
-
-/* Navbar and Sidebar Styles - Now using the same variables */
-.navbar,
-.social-sidebar {
-  background-color: var(--nav-sidebar-bg);
-}
-
-.navbar {
-  border-bottom: 1px solid var(--border-color);
-}
-
-.social-icon {
-  color: var(--nav-sidebar-icon);
-  transition: color 0.3s ease;
-}
-
-.social-icon:hover {
-  color: var(--nav-sidebar-icon-hover);
-}
-
-/* Helper Classes */
-.container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-.section {
-  padding: 4rem 0;
-}
-
-.divider {
-  height: 1px;
-  width: 100%;
-  background-color: var(--divider);
-  margin: 2rem 0;
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
 }

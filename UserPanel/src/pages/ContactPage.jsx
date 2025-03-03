@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import SocialSidebar from "../components/Sidebar";
 import Swal from "sweetalert2";
 import { useTheme } from "../context/ThemeContext";
 
 const ContactPage = () => {
-  const { isDark, toggleTheme } = useTheme();
+  const { isDark } = useTheme();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [hoveredButton, setHoveredButton] = useState(false);
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -14,9 +14,6 @@ const ContactPage = () => {
     const formData = new FormData(event.target);
     formData.append("access_key", "6ac0c56b-a72f-4c05-ac07-e6b69a934d81");
 
-    const object = Object.fromEntries(formData);
-    const json = JSON.stringify(object);
-
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -24,7 +21,7 @@ const ContactPage = () => {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: json,
+        body: JSON.stringify(Object.fromEntries(formData)),
       }).then((res) => res.json());
 
       if (res.success) {
@@ -50,18 +47,49 @@ const ContactPage = () => {
     }
   };
 
+  const inputStyle = {
+    width: "100%",
+    padding: "12px 16px",
+    backgroundColor: isDark ? "#1a1a1a" : "#ffffff",
+    color: isDark ? "var(--color-grey)" : "var(--color-dark-grey)",
+    border: "2px solid var(--color-teal)",
+    borderRadius: "6px",
+    outline: "none",
+    transition: "all 0.3s ease",
+  };
+
+  const linkStyle = {
+    color: "var(--text-primary)",
+    transition: "duration-300",
+  };
+
   return (
-    <div className="min-h-screen lg:pt-16 relative">
-      <SocialSidebar />
+    <div
+      className={`min-h-screen lg:pt-16 ${isDark ? "dark-mode" : ""}`}
+      style={{
+        backgroundColor: "var(--bg-main)",
+        color: "var(--text-primary)",
+      }}
+    >
       <div className="max-w-screen-xl mx-auto px-4 py-16">
         <form onSubmit={onSubmit} className="grid md:grid-cols-2 gap-16">
           {/* Contact Information */}
           <div className="space-y-8">
-            <div className="flex justify-between items-center">
-              <h1 className="text-5xl lg:text-6xl font-bold">Contact Me</h1>
-            </div>
+            <h1
+              className="text-5xl lg:text-6xl font-bold"
+              style={{ color: "var(--color-teal)" }}
+            >
+              Contact Me
+            </h1>
 
-            <div className="divider"></div>
+            <div
+              className="divider"
+              style={{
+                height: "2px",
+                backgroundColor: "var(--color-teal)",
+                width: "1/3",
+              }}
+            ></div>
 
             <h2 className="text-2xl font-semibold">Get in touch</h2>
 
@@ -70,7 +98,13 @@ const ContactPage = () => {
                 <p className="opacity-80">Email:</p>
                 <a
                   href="mailto:info.muhammadzeeshan53@gmail.com"
-                  className="hover:text-accent-primary"
+                  style={linkStyle}
+                  onMouseOver={(e) =>
+                    (e.target.style.color = "var(--color-teal)")
+                  }
+                  onMouseOut={(e) =>
+                    (e.target.style.color = "var(--text-primary)")
+                  }
                 >
                   info.muhammadzeeshan53@gmail.com
                 </a>
@@ -80,7 +114,13 @@ const ContactPage = () => {
                 <p className="opacity-80">Phone:</p>
                 <a
                   href="tel:(+92) 370 4016847"
-                  className="hover:text-accent-primary"
+                  style={linkStyle}
+                  onMouseOver={(e) =>
+                    (e.target.style.color = "var(--color-teal)")
+                  }
+                  onMouseOut={(e) =>
+                    (e.target.style.color = "var(--text-primary)")
+                  }
                 >
                   (+92) 370 4016847
                 </a>
@@ -97,31 +137,76 @@ const ContactPage = () => {
           {/* Contact Form Fields */}
           <div className="space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <input type="text" name="name" placeholder="Name" required />
-              </div>
-              <div>
-                <input type="email" name="email" placeholder="Email" required />
-              </div>
+              <input
+                type="text"
+                name="name"
+                placeholder="Name"
+                required
+                style={inputStyle}
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                required
+                style={inputStyle}
+              />
             </div>
 
-            <div>
-              <textarea
-                name="message"
-                placeholder="Message"
-                rows="5"
-                required
-              ></textarea>
-            </div>
+            <input
+              type="text"
+              name="subject"
+              placeholder="Subject"
+              required
+              style={inputStyle}
+            />
+
+            <textarea
+              name="message"
+              placeholder="Message"
+              rows="5"
+              required
+              style={{ ...inputStyle, resize: "none" }}
+            ></textarea>
 
             <button
               type="submit"
               className="btn flex items-center justify-center"
+              style={{
+                padding: "12px 24px",
+                backgroundColor: hoveredButton
+                  ? "var(--color-teal)"
+                  : "transparent",
+                color: hoveredButton ? "white" : "var(--text-primary)",
+                border: "2px solid var(--color-teal)",
+                borderRadius: "6px",
+                fontWeight: "500",
+                cursor: isSubmitting ? "wait" : "pointer",
+                transition: "all 0.3s ease",
+                opacity: isSubmitting ? 0.7 : 1,
+              }}
+              onMouseEnter={() => setHoveredButton(true)}
+              onMouseLeave={() => setHoveredButton(false)}
               disabled={isSubmitting}
             >
-              {isSubmitting ? (
-                <span className="inline-block w-5 h-5 border-2 border-transparent border-t-current border-l-current rounded-full animate-spin mr-2"></span>
-              ) : null}
+              {isSubmitting && (
+                <span
+                  className="inline-block mr-2"
+                  style={{
+                    width: "20px",
+                    height: "20px",
+                    borderRadius: "50%",
+                    border: "2px solid transparent",
+                    borderTopColor: hoveredButton
+                      ? "white"
+                      : "var(--color-teal)",
+                    borderLeftColor: hoveredButton
+                      ? "white"
+                      : "var(--color-teal)",
+                    animation: "spin 1s linear infinite",
+                  }}
+                ></span>
+              )}
               {isSubmitting ? "Sending..." : "Send Message"}
             </button>
           </div>

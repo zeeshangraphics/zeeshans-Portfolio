@@ -7,7 +7,6 @@ import {
 import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
 import ContactPage from "./pages/ContactPage";
-import SocialSidebar from "./components/Sidebar";
 import AboutPage from "./pages/AboutPage";
 import PortfolioPage from "./pages/PortfolioPage";
 import { ThemeProvider } from "./context/ThemeContext";
@@ -17,8 +16,6 @@ function App() {
     <Router>
       <ThemeProvider>
         <Navbar />
-        <div className="flex">
-          <SocialSidebar />
           <div className="flex-grow lg:pl-16 pt-16">
             <Routes>
               <Route path="/contact" element={<ContactPage />} />
@@ -30,13 +27,8 @@ function App() {
                 path="/portfolio"
                 element={<Navigate to="/portfolio/branding" />}
               />
-              <Route
-                path="/gallery"
-                element={<Navigate to="/portfolio/branding" />}
-              />
             </Routes>
           </div>
-        </div>
       </ThemeProvider>
     </Router>
   );
