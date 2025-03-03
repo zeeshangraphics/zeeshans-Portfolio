@@ -1,30 +1,37 @@
 import React, { useState } from "react";
-import Swal from "sweetalert2";
 import { useTheme } from "../context/ThemeContext";
+import Swal from "sweetalert2";
+import emailjs from "@emailjs/browser";
 
 const ContactPage = () => {
   const { isDark } = useTheme();
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [hoveredButton, setHoveredButton] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const onSubmit = async (event) => {
     event.preventDefault();
     setIsSubmitting(true);
 
-    const formData = new FormData(event.target);
-    formData.append("access_key", "6ac0c56b-a72f-4c05-ac07-e6b69a934d81");
-
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(Object.fromEntries(formData)),
-      }).then((res) => res.json());
+      const result = await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_CONTACT_ID,
+        formData,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
 
-      if (res.success) {
+      if (result.status === 200) {
         Swal.fire({
           title:
             "<h2 style='font-size: 1.2rem; margin-bottom: 10px;'>Message sent successfully!</h2>",
@@ -32,9 +39,10 @@ const ContactPage = () => {
           draggable: true,
           width: "300px",
         });
-        event.target.reset();
+        setFormData({ name: "", email: "", subject: "", message: "" });
       }
     } catch (error) {
+      console.error("Error sending email:", error);
       Swal.fire({
         title:
           "<h2 style='font-size: 1.2rem; margin-bottom: 10px;'>Something went wrong!</h2>",
@@ -58,11 +66,6 @@ const ContactPage = () => {
     transition: "all 0.3s ease",
   };
 
-  const linkStyle = {
-    color: "var(--text-primary)",
-    transition: "duration-300",
-  };
-
   return (
     <div
       className={`min-h-screen lg:pt-16 ${isDark ? "dark-mode" : ""}`}
@@ -81,7 +84,6 @@ const ContactPage = () => {
             >
               Contact Me
             </h1>
-
             <div
               className="divider"
               style={{
@@ -90,15 +92,16 @@ const ContactPage = () => {
                 width: "1/3",
               }}
             ></div>
-
             <h2 className="text-2xl font-semibold">Get in touch</h2>
-
             <div className="space-y-4">
               <div>
                 <p className="opacity-80">Email:</p>
                 <a
                   href="mailto:info.muhammadzeeshan53@gmail.com"
-                  style={linkStyle}
+                  style={{
+                    color: "var(--text-primary)",
+                    transition: "duration-300",
+                  }}
                   onMouseOver={(e) =>
                     (e.target.style.color = "var(--color-teal)")
                   }
@@ -109,12 +112,14 @@ const ContactPage = () => {
                   info.muhammadzeeshan53@gmail.com
                 </a>
               </div>
-
               <div>
                 <p className="opacity-80">Phone:</p>
                 <a
                   href="tel:(+92) 370 4016847"
-                  style={linkStyle}
+                  style={{
+                    color: "var(--text-primary)",
+                    transition: "duration-300",
+                  }}
                   onMouseOver={(e) =>
                     (e.target.style.color = "var(--color-teal)")
                   }
@@ -126,7 +131,6 @@ const ContactPage = () => {
                 </a>
               </div>
             </div>
-
             <p>
               Let's bring your creative vision to life. Whether you need
               branding, web design, or a complete visual identity, I'm here to
@@ -143,6 +147,8 @@ const ContactPage = () => {
                 placeholder="Name"
                 required
                 style={inputStyle}
+                value={formData.name}
+                onChange={handleChange}
               />
               <input
                 type="email"
@@ -150,25 +156,28 @@ const ContactPage = () => {
                 placeholder="Email"
                 required
                 style={inputStyle}
+                value={formData.email}
+                onChange={handleChange}
               />
             </div>
-
             <input
               type="text"
               name="subject"
               placeholder="Subject"
               required
               style={inputStyle}
+              value={formData.subject}
+              onChange={handleChange}
             />
-
             <textarea
               name="message"
               placeholder="Message"
               rows="5"
               required
               style={{ ...inputStyle, resize: "none" }}
+              value={formData.message}
+              onChange={handleChange}
             ></textarea>
-
             <button
               type="submit"
               className="btn flex items-center justify-center"

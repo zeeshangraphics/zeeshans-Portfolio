@@ -134,8 +134,30 @@ const PortfolioPage = () => {
 
   if (loading) {
     return (
-      <div className="container section flex justify-center items-center min-h-screen">
-        <p>Loading portfolio items...</p>
+      <div className="container section flex flex-col justify-center items-center min-h-screen">
+        <div className="loader mb-4">
+          <div
+            className="spinner"
+            style={{
+              border: "4px solid rgba(0, 0, 0, 0.1)",
+              borderRadius: "50%",
+              borderTop: "5px solid var(--color-teal)",
+              width: "60px",
+              height: "60px",
+              animation: "spin 1s linear infinite",
+            }}
+          ></div>
+        </div>
+        <style jsx>{`
+          @keyframes spin {
+            0% {
+              transform: rotate(0deg);
+            }
+            100% {
+              transform: rotate(360deg);
+            }
+          }
+        `}</style>
       </div>
     );
   }
