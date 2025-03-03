@@ -27,17 +27,11 @@ const Navbar = () => {
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add("dark-mode");
-    } else {
-      document.documentElement.classList.remove("dark-mode");
-    }
+    document.documentElement.classList.toggle("dark-mode", isDark);
   }, [isDark]);
 
   // Portfolio categories matching the database values
@@ -96,32 +90,32 @@ const Navbar = () => {
               Portfolio <ChevronDown className="w-4 h-4 ml-1" />
             </button>
 
-            {isDropdownOpen && (
-              <div
-                className="absolute top-full left-0 mt-2 w-56 rounded-md shadow-lg z-10 overflow-hidden"
-                style={{
-                  backgroundColor: isDark ? "#1a1a1a" : "#ffffff",
-                  border: `1px solid var(--color-teal)`,
-                }}
-              >
-                {portfolioCategories.map((category) => (
-                  <Link
-                    key={category.value}
-                    to={`/portfolio/${category.value}`}
-                    className="block px-4 py-3 transition-colors duration-200 hover:bg-teal-500 hover:text-white"
-                    style={{
-                      color: isDark
-                        ? "var(--color-grey)"
-                        : "var(--color-dark-grey)",
-                      borderBottom: "1px solid #eaeaea",
-                    }}
-                    onClick={() => setIsDropdownOpen(false)}
-                  >
-                    {category.display}
-                  </Link>
-                ))}
-              </div>
-            )}
+            <div
+              className="absolute top-full left-0 mt-2 w-56 rounded-md shadow-lg z-10 overflow-hidden transition-all duration-300 origin-top"
+              style={{
+                backgroundColor: isDark ? "#1a1a1a" : "#ffffff",
+                border: `1px solid var(--color-teal)`,
+                opacity: isDropdownOpen ? 1 : 0,
+                visibility: isDropdownOpen ? "visible" : "hidden",
+                transform: isDropdownOpen ? "scaleY(1)" : "scaleY(0)",
+                transformOrigin: "top",
+              }}
+            >
+              {portfolioCategories.map((category) => (
+                <Link
+                  key={category.value}
+                  to={`/portfolio/${category.value}`}
+                  className="block px-4 py-3 transition-colors duration-200 hover:bg-teal-500 hover:text-white"
+                  style={{
+                    color: isDark ? "var(--color-grey)" : "var(--color-dark-grey)",
+                    borderBottom: "1px solid #eaeaea",
+                  }}
+                  onClick={() => setIsDropdownOpen(false)}
+                >
+                  {category.display}
+                </Link>
+              ))}
+            </div>
           </div>
 
           <Link
@@ -158,10 +152,7 @@ const Navbar = () => {
             {isDark ? (
               <Sun className="w-5 h-5" style={{ color: "var(--color-teal)" }} />
             ) : (
-              <Moon
-                className="w-5 h-5"
-                style={{ color: "var(--color-teal)" }}
-              />
+              <Moon className="w-5 h-5" style={{ color: "var(--color-teal)" }} />
             )}
           </button>
         </div>
@@ -181,10 +172,7 @@ const Navbar = () => {
             {isDark ? (
               <Sun className="w-5 h-5" style={{ color: "var(--color-teal)" }} />
             ) : (
-              <Moon
-                className="w-5 h-5"
-                style={{ color: "var(--color-teal)" }}
-              />
+              <Moon className="w-5 h-5" style={{ color: "var(--color-teal)" }} />
             )}
           </button>
           <button
@@ -200,112 +188,105 @@ const Navbar = () => {
             {isOpen ? (
               <X className="w-5 h-5" style={{ color: "var(--color-teal)" }} />
             ) : (
-              <Menu
-                className="w-5 h-5"
-                style={{ color: "var(--color-teal)" }}
-              />
+              <Menu className="w-5 h-5" style={{ color: "var(--color-teal)" }} />
             )}
           </button>
         </div>
 
         {/* Mobile Navigation */}
-        {isOpen && (
-          <div
-            className="md:hidden absolute top-full left-0 w-full shadow-lg"
-            style={{
-              backgroundColor: isDark ? "var(--color-black)" : "#f5f5f5",
-              borderTop: `1px solid var(--color-teal)`,
-            }}
-          >
-            <div className="flex flex-col p-4">
-              <Link
-                to="/home"
-                className="py-3 transition-colors hover:text-teal-500"
+        <div
+          className="md:hidden absolute top-full left-0 w-full shadow-lg transition-all duration-300"
+          style={{
+            backgroundColor: isDark ? "var(--color-black)" : "#f5f5f5",
+            borderTop: `1px solid var(--color-teal)`,
+            opacity: isOpen ? 1 : 0,
+            visibility: isOpen ? "visible" : "hidden",
+            transform: isOpen ? "translateY(0)" : "translateY(-10px)",
+            height: isOpen ? "auto" : 0,
+            overflow: "hidden",
+          }}
+        >
+          <div className="flex flex-col p-4">
+            <Link
+              to="/home"
+              className="py-3 transition-colors hover:text-teal-500"
+              style={{
+                color: isDark ? "var(--color-grey)" : "var(--color-dark-grey)",
+              }}
+              onClick={toggleMenu}
+            >
+              Home
+            </Link>
+
+            {/* Mobile Portfolio Dropdown */}
+            <div ref={mobileDropdownRef}>
+              <button
+                onClick={toggleDropdown}
+                className="flex items-center w-full text-left py-3 transition-colors rounded-md my-2"
                 style={{
-                  color: isDark
-                    ? "var(--color-grey)"
-                    : "var(--color-dark-grey)",
+                  color: isDark ? "var(--color-grey)" : "var(--color-dark-grey)",
+                  border: `2px solid var(--color-teal)`,
+                  padding: "8px 12px",
                 }}
-                onClick={toggleMenu}
               >
-                Home
-              </Link>
+                Portfolio <ChevronDown className="w-4 h-4 ml-1" />
+              </button>
 
-              {/* Mobile Portfolio Dropdown */}
-              <div ref={mobileDropdownRef}>
-                <button
-                  onClick={toggleDropdown}
-                  className="flex items-center w-full text-left py-3 transition-colors rounded-md my-2"
-                  style={{
-                    color: isDark
-                      ? "var(--color-grey)"
-                      : "var(--color-dark-grey)",
-                    border: `2px solid var(--color-teal)`,
-                    padding: "8px 12px",
-                  }}
-                >
-                  Portfolio <ChevronDown className="w-4 h-4 ml-1" />
-                </button>
-
-                {isDropdownOpen && (
-                  <div
-                    className="pl-4 space-y-0 rounded-md overflow-hidden mt-1 mb-2"
+              <div
+                className="pl-4 space-y-0 rounded-md overflow-hidden mt-1 mb-2 transition-all duration-300 origin-top"
+                style={{
+                  borderLeft: `2px solid var(--color-teal)`,
+                  backgroundColor: isDark ? "#1a1a1a" : "#ffffff",
+                  maxHeight: isDropdownOpen ? "1000px" : "0px",
+                  opacity: isDropdownOpen ? 1 : 0,
+                  visibility: isDropdownOpen ? "visible" : "hidden",
+                  transform: isDropdownOpen ? "scaleY(1)" : "scaleY(0)",
+                  transformOrigin: "top",
+                }}
+              >
+                {portfolioCategories.map((category) => (
+                  <Link
+                    key={category.value}
+                    to={`/portfolio/${category.value}`}
+                    className="block py-3 px-3 transition-colors hover:bg-teal-500 hover:text-white"
                     style={{
-                      borderLeft: `2px solid var(--color-teal)`,
-                      backgroundColor: isDark ? "#1a1a1a" : "#ffffff",
+                      color: isDark ? "var(--color-grey)" : "var(--color-dark-grey)",
+                      borderBottom: "1px solid #eaeaea",
+                    }}
+                    onClick={() => {
+                      setIsDropdownOpen(false);
+                      setIsOpen(false);
                     }}
                   >
-                    {portfolioCategories.map((category) => (
-                      <Link
-                        key={category.value}
-                        to={`/portfolio/${category.value}`}
-                        className="block py-3 px-3 transition-colors hover:bg-teal-500 hover:text-white"
-                        style={{
-                          color: isDark
-                            ? "var(--color-grey)"
-                            : "var(--color-dark-grey)",
-                          borderBottom: "1px solid #eaeaea",
-                        }}
-                        onClick={() => {
-                          setIsDropdownOpen(false);
-                          setIsOpen(false);
-                        }}
-                      >
-                        {category.display}
-                      </Link>
-                    ))}
-                  </div>
-                )}
+                    {category.display}
+                  </Link>
+                ))}
               </div>
-
-              <Link
-                to="/about"
-                className="py-3 transition-colors hover:text-teal-500"
-                style={{
-                  color: isDark
-                    ? "var(--color-grey)"
-                    : "var(--color-dark-grey)",
-                }}
-                onClick={toggleMenu}
-              >
-                About
-              </Link>
-
-              <Link
-                to="/contact"
-                className="py-3 transition-colors hover:text-teal-500"
-                style={{
-                  color: isDark
-                    ? "var(--color-grey)"
-                    : "var(--color-dark-grey)",
-                }}
-                onClick={toggleMenu}
-              >
-                Contact
-              </Link>
             </div>
+
+            <Link
+              to="/about"
+              className="py-3 transition-colors hover:text-teal-500"
+              style={{
+                color: isDark ? "var(--color-grey)" : "var(--color-dark-grey)",
+              }}
+              onClick={toggleMenu}
+            >
+              About
+            </Link>
+
+            <Link
+              to="/contact"
+              className="py-3 transition-colors hover:text-teal-500"
+              style={{
+                color: isDark ? "var(--color-grey)" : "var(--color-dark-grey)",
+              }}
+              onClick={toggleMenu}
+            >
+              Contact
+            </Link>
           </div>
-        )}
+        </div>
       </div>
     </nav>
   );
