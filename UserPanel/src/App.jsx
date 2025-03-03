@@ -5,6 +5,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
 import ContactPage from "./pages/ContactPage";
 import AboutPage from "./pages/AboutPage";
@@ -15,7 +16,8 @@ function App() {
   return (
     <Router>
       <ThemeProvider>
-        <Navbar />
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
           <div className="flex-grow lg:pl-16 pt-16">
             <Routes>
               <Route path="/contact" element={<ContactPage />} />
@@ -29,6 +31,8 @@ function App() {
               />
             </Routes>
           </div>
+          <Footer />
+        </div>
       </ThemeProvider>
     </Router>
   );
