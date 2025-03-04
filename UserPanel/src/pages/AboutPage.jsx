@@ -1,5 +1,6 @@
-import React from "react";
+"use client";
 import { useTheme } from "../context/ThemeContext";
+import { motion } from "framer-motion";
 
 const AboutPage = () => {
   const { isDark } = useTheme();
@@ -13,29 +14,103 @@ const AboutPage = () => {
     backgroundColor: isDark ? "rgba(255,255,255,0.03)" : "rgba(0,0,0,0.03)",
   };
 
+  // Animation variants
+  const fadeIn = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i = 0) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.7,
+        ease: "easeOut",
+      },
+    }),
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+    hover: {
+      y: -5,
+      boxShadow: "0 10px 25px rgba(0, 0, 0, 0.1)",
+      transition: {
+        duration: 0.3,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -10 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const profileImageVariants = {
+    hidden: { scale: 0.8, opacity: 0 },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        duration: 1,
+        ease: [0.34, 1.56, 0.64, 1], // Spring-like effect
+      },
+    },
+  };
+
   return (
-    <div
+    <motion.div
       className={`min-h-screen ${isDark ? "dark-mode" : ""}`}
       style={{
         backgroundColor: "var(--bg-main)",
         color: "var(--text-primary)",
       }}
+      initial="hidden"
+      animate="visible"
+      variants={fadeIn}
     >
       <div className="relative pt-16 pb-20 overflow-hidden">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-5">
-              <h1
+            <motion.div className="space-y-5" variants={fadeIn} custom={1}>
+              <motion.h1
                 className="text-4xl lg:text-6xl font-bold"
                 style={{
                   color: isDark
                     ? "var(--color-grey)"
                     : "var(--color-dark-grey)",
                 }}
+                variants={fadeIn}
+                custom={2}
               >
                 Hello!
-              </h1>
-              <div className="space-y-4">
+              </motion.h1>
+              <motion.div className="space-y-4" variants={fadeIn} custom={3}>
                 <p className="text-base leading-relaxed">
                   <span
                     className="font-bold text-xl"
@@ -54,33 +129,45 @@ const AboutPage = () => {
                   excellence, I ensure every design leaves a timeless
                   impression.
                 </p>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
-            {/* Simple circle profile image with teal outline */}
-            <div className="hidden lg:flex justify-center items-center">
-              <div
+            {/* Profile image with animation */}
+            <motion.div
+              className="hidden lg:flex justify-center items-center"
+              variants={profileImageVariants}
+            >
+              <motion.div
                 className="relative w-64 h-64 rounded-full border-4 border-solid"
                 style={{ borderColor: "var(--color-teal)" }}
+                whileHover={{
+                  scale: 1.05,
+                  transition: { duration: 0.3 },
+                }}
               >
                 <img
                   src="https://i.pinimg.com/564x/bd/da/b7/bddab779c1b5e0bded2f6e4face72dfd.jpg"
                   alt="Muhammad Zeeshan"
                   className="absolute inset-0 w-full h-full rounded-full object-cover"
                 />
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
       </div>
 
       {/* Main Content in Cards Layout */}
       <div className="max-w-6xl mx-auto px-6 lg:px-8 pb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <motion.div
+          className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+          variants={staggerContainer}
+        >
           {/* Experience Card */}
-          <div
-            className="p-6 rounded-lg shadow-lg transition-all duration-300 hover:translate-y-[-5px] hover:shadow-xl"
+          <motion.div
+            className="p-6 rounded-lg shadow-lg"
             style={bgStyle}
+            variants={cardVariants}
+            whileHover="hover"
           >
             <h2
               className="text-2xl font-bold mb-4"
@@ -88,7 +175,7 @@ const AboutPage = () => {
             >
               Experience
             </h2>
-            <div className="space-y-4">
+            <motion.div className="space-y-4" variants={staggerContainer}>
               {[
                 {
                   title: "Taha Printing Services",
@@ -109,10 +196,17 @@ const AboutPage = () => {
                     "I'm the owner of Visual Graphics. I'm mostly creating content to attract my audience & also help them form my content. I upload my personal project daily basis on it",
                 },
               ].map((exp, index) => (
-                <div
+                <motion.div
                   key={index}
                   className="p-3 rounded transition-all hover:bg-opacity-10"
                   style={itemStyle}
+                  variants={itemVariants}
+                  whileHover={{
+                    backgroundColor: isDark
+                      ? "rgba(255,255,255,0.07)"
+                      : "rgba(0,0,0,0.07)",
+                    transition: { duration: 0.2 },
+                  }}
                 >
                   <h3 className="font-bold text-lg">
                     {exp.title}{" "}
@@ -127,17 +221,19 @@ const AboutPage = () => {
                   {exp.description && (
                     <p className="mt-1 text-sm">{exp.description}</p>
                   )}
-                </div>
+                </motion.div>
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Creative Fields & Software Card */}
-          <div className="space-y-6">
+          <motion.div className="space-y-6" variants={staggerContainer}>
             {/* Creative Fields Card */}
-            <div
-              className="p-6 rounded-lg shadow-lg transition-all duration-300 hover:translate-y-[-5px] hover:shadow-xl"
+            <motion.div
+              className="p-6 rounded-lg shadow-lg"
               style={bgStyle}
+              variants={cardVariants}
+              whileHover="hover"
             >
               <h2
                 className="text-2xl font-bold mb-4"
@@ -145,7 +241,10 @@ const AboutPage = () => {
               >
                 Creative Fields
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <motion.div
+                className="grid grid-cols-1 md:grid-cols-2 gap-3"
+                variants={staggerContainer}
+              >
                 {[
                   "Logo Design",
                   "Branding Identity",
@@ -154,26 +253,40 @@ const AboutPage = () => {
                   "Print Design, Flyers, Brouchers",
                   "Advertising Images Designer",
                   "Product Images Designer",
-                ].map((item) => (
-                  <div
+                ].map((item, index) => (
+                  <motion.div
                     key={item}
                     className="flex items-center space-x-2 p-2 rounded transition-all hover:bg-opacity-10"
                     style={itemStyle}
+                    variants={itemVariants}
+                    custom={index}
+                    whileHover={{
+                      backgroundColor: isDark
+                        ? "rgba(255,255,255,0.07)"
+                        : "rgba(0,0,0,0.07)",
+                      x: 5,
+                      transition: { duration: 0.2 },
+                    }}
                   >
-                    <span
+                    <motion.span
                       className="w-1.5 h-1.5 rounded-full"
                       style={{ backgroundColor: "var(--color-teal)" }}
-                    ></span>
+                      initial={{ scale: 0.8 }}
+                      animate={{ scale: [0.8, 1.2, 1] }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                    ></motion.span>
                     <span className="text-sm">{item}</span>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
             {/* Software Card */}
-            <div
-              className="p-6 rounded-lg shadow-lg transition-all duration-300 hover:translate-y-[-5px] hover:shadow-xl"
+            <motion.div
+              className="p-6 rounded-lg shadow-lg"
               style={bgStyle}
+              variants={cardVariants}
+              whileHover="hover"
             >
               <h2
                 className="text-2xl font-bold mb-4"
@@ -181,7 +294,10 @@ const AboutPage = () => {
               >
                 Software
               </h2>
-              <div className="grid grid-cols-1 gap-3">
+              <motion.div
+                className="grid grid-cols-1 gap-3"
+                variants={staggerContainer}
+              >
                 {[
                   {
                     name: "Adobe Photoshop",
@@ -198,29 +314,41 @@ const AboutPage = () => {
                     color: "text-purple-600",
                     path: "M18,20H6V4h12 M18,2H6C4.9,2,4,2.9,4,4v16c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2V4C20,2.9,19.1,2,18,2z M10,10.5 c0-0.83,0.67-1.5,1.5-1.5S13,9.67,13,10.5l-2.04,2.73L13,16h-1.5l-1.48-2.16L9,15.01H7.5l2.02-2.76L7.5,10h1.5l1.43,1.99L10,10.5z M20,20H4V3h16V20z",
                   },
-                ].map((software) => (
-                  <div
+                ].map((software, index) => (
+                  <motion.div
                     key={software.name}
                     className="flex items-center space-x-3 p-2 rounded transition-all hover:bg-opacity-10"
                     style={itemStyle}
+                    variants={itemVariants}
+                    custom={index}
+                    whileHover={{
+                      backgroundColor: isDark
+                        ? "rgba(255,255,255,0.07)"
+                        : "rgba(0,0,0,0.07)",
+                      x: 5,
+                      transition: { duration: 0.2 },
+                    }}
                   >
-                    <svg
+                    <motion.svg
                       viewBox="0 0 24 24"
                       width="24"
                       height="24"
                       className={software.color}
+                      initial={{ rotate: -10, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
                     >
                       <path fill="currentColor" d={software.path} />
-                    </svg>
+                    </motion.svg>
                     <span className="text-sm">{software.name}</span>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
-            </div>
-          </div>
-        </div>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

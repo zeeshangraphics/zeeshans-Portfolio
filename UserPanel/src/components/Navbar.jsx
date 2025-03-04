@@ -46,7 +46,7 @@ const Navbar = () => {
     <nav
       className="w-full fixed top-0 left-0 border-b z-50"
       style={{
-        backgroundColor: isDark ? "var(--color-black)" : "#f5f5f5", 
+        backgroundColor: isDark ? "var(--color-black)" : "#f5f5f5",
         borderColor: "var(--border-color)",
         transition: "all 0.3s ease",
       }}
@@ -58,7 +58,6 @@ const Navbar = () => {
           className="text-2xl md:text-3xl font-bold z-10 lg:pl-4"
           style={{
             color: "var(--color-teal)",
-            fontFamily: "var(--font-display)",
           }}
         >
           Muhammad Zeeshan
@@ -105,9 +104,11 @@ const Navbar = () => {
                 <Link
                   key={category.value}
                   to={`/portfolio/${category.value}`}
-                  className="block px-4 py-3 transition-colors duration-200 hover:bg-teal-500 hover:text-white"
+                  className="block px-4 py-3 transition-colors duration-200 hover:bg-[var(--color-teal)]zee hover:text-white"
                   style={{
-                    color: isDark ? "var(--color-grey)" : "var(--color-dark-grey)",
+                    color: isDark
+                      ? "var(--color-grey)"
+                      : "var(--color-dark-grey)",
                     borderBottom: "1px solid #eaeaea",
                   }}
                   onClick={() => setIsDropdownOpen(false)}
@@ -152,7 +153,10 @@ const Navbar = () => {
             {isDark ? (
               <Sun className="w-5 h-5" style={{ color: "var(--color-teal)" }} />
             ) : (
-              <Moon className="w-5 h-5" style={{ color: "var(--color-teal)" }} />
+              <Moon
+                className="w-5 h-5"
+                style={{ color: "var(--color-teal)" }}
+              />
             )}
           </button>
         </div>
@@ -172,7 +176,10 @@ const Navbar = () => {
             {isDark ? (
               <Sun className="w-5 h-5" style={{ color: "var(--color-teal)" }} />
             ) : (
-              <Moon className="w-5 h-5" style={{ color: "var(--color-teal)" }} />
+              <Moon
+                className="w-5 h-5"
+                style={{ color: "var(--color-teal)" }}
+              />
             )}
           </button>
           <button
@@ -188,7 +195,10 @@ const Navbar = () => {
             {isOpen ? (
               <X className="w-5 h-5" style={{ color: "var(--color-teal)" }} />
             ) : (
-              <Menu className="w-5 h-5" style={{ color: "var(--color-teal)" }} />
+              <Menu
+                className="w-5 h-5"
+                style={{ color: "var(--color-teal)" }}
+              />
             )}
           </button>
         </div>
@@ -224,7 +234,9 @@ const Navbar = () => {
                 onClick={toggleDropdown}
                 className="flex items-center w-full text-left py-3 transition-colors rounded-md my-2"
                 style={{
-                  color: isDark ? "var(--color-grey)" : "var(--color-dark-grey)",
+                  color: isDark
+                    ? "var(--color-grey)"
+                    : "var(--color-dark-grey)",
                   border: `2px solid var(--color-teal)`,
                   padding: "8px 12px",
                 }}
@@ -250,7 +262,9 @@ const Navbar = () => {
                     to={`/portfolio/${category.value}`}
                     className="block py-3 px-3 transition-colors hover:bg-teal-500 hover:text-white"
                     style={{
-                      color: isDark ? "var(--color-grey)" : "var(--color-dark-grey)",
+                      color: isDark
+                        ? "var(--color-grey)"
+                        : "var(--color-dark-grey)",
                       borderBottom: "1px solid #eaeaea",
                     }}
                     onClick={() => {

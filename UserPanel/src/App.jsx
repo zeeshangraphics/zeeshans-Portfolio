@@ -11,14 +11,16 @@ import ContactPage from "./pages/ContactPage";
 import AboutPage from "./pages/AboutPage";
 import PortfolioPage from "./pages/PortfolioPage";
 import { ThemeProvider } from "./context/ThemeContext";
+import BackgroundAnimations from "./components/BackgroundAnimations";
 
 function App() {
   return (
     <Router>
       <ThemeProvider>
         <div className="flex flex-col min-h-screen">
+          <BackgroundAnimations />
           <Navbar />
-          <div className="flex-grow lg:pl-16 pt-16">
+          <div className="flex-grow pt-14">
             <Routes>
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/home" element={<HomePage />} />

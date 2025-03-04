@@ -171,10 +171,9 @@ const PortfolioPage = () => {
   }
 
   return (
-    <div className="container section pt-12 px-4">
-      <h1 className="text-4xl lg:text-5xl mb-4">{displayCategory}</h1>
+    <div className="container section pt-12 px-4 max-w-7xl mt-12 mb-5">
+      <h1 className="text-3xl lg:text-5xl mb-4">{displayCategory}</h1>
 
-      {/* Teal colored divider line below category name - 50% width on large devices */}
       <div
         className="mb-8 w-full lg:w-1/2"
         style={{
