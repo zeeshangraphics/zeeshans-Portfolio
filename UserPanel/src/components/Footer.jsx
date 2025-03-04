@@ -7,6 +7,7 @@ import {
   FaBriefcase,
   FaEnvelope,
   FaPhone,
+  FaTiktok,
 } from "react-icons/fa";
 import {
   FaFacebookF,
@@ -34,11 +35,11 @@ const Footer = () => {
     {
       name: "Instagram",
       icon: <FaInstagram />,
-      link: "https://www.instagram.com/yourprofile",
+      link: "https://www.instagram.com/v_isualgraphics/",
     },
     {
-      name: "Twitter",
-      icon: <FaTwitter />,
+      name: "Tiktok",
+      icon: <FaTiktok />,
       link: "https://www.twitter.com/yourprofile",
     },
     {
