@@ -67,10 +67,16 @@ const Navbar = () => {
         <div className="hidden md:flex items-center space-x-8">
           <Link
             to="/home"
-            className="transition hover:text-teal-500"
+            className="transition"
             style={{
               color: isDark ? "var(--color-grey)" : "var(--color-dark-grey)",
             }}
+            onMouseEnter={(e) => (e.target.style.color = "var(--color-teal)")}
+            onMouseLeave={(e) =>
+              (e.target.style.color = isDark
+                ? "var(--color-grey)"
+                : "var(--color-dark-grey)")
+            }
           >
             Home
           </Link>
@@ -104,7 +110,7 @@ const Navbar = () => {
                 <Link
                   key={category.value}
                   to={`/portfolio/${category.value}`}
-                  className="block px-4 py-3 transition-colors duration-200 hover:bg-[var(--color-teal)]zee hover:text-white"
+                  className="block px-4 py-3 transition-colors duration-200 hover:bg-[var(--color-teal)] hover:text-white"
                   style={{
                     color: isDark
                       ? "var(--color-grey)"
@@ -121,20 +127,32 @@ const Navbar = () => {
 
           <Link
             to="/about"
-            className="transition hover:text-teal-500"
+            className="transition-colors"
             style={{
               color: isDark ? "var(--color-grey)" : "var(--color-dark-grey)",
             }}
+            onMouseEnter={(e) => (e.target.style.color = "var(--color-teal)")}
+            onMouseLeave={(e) =>
+              (e.target.style.color = isDark
+                ? "var(--color-grey)"
+                : "var(--color-dark-grey)")
+            }
           >
             About
           </Link>
 
           <Link
             to="/contact"
-            className="transition hover:text-teal-500"
+            className="transition"
             style={{
               color: isDark ? "var(--color-grey)" : "var(--color-dark-grey)",
             }}
+            onMouseEnter={(e) => (e.target.style.color = "var(--color-teal)")}
+            onMouseLeave={(e) =>
+              (e.target.style.color = isDark
+                ? "var(--color-grey)"
+                : "var(--color-dark-grey)")
+            }
           >
             Contact
           </Link>

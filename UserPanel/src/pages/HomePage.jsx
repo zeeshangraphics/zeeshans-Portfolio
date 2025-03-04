@@ -70,6 +70,188 @@ const HomePage = () => {
     },
   ];
 
+  const services = [
+    {
+      title: "Branding",
+      description:
+        "Crafting unique brand identities that tell your story and stand out.",
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
+          <line x1="7" y1="7" x2="7.01" y2="7" />
+        </svg>
+      ),
+    },
+    {
+      title: "Logo Design",
+      description:
+        "Creating memorable logos that capture your brand's essence and vision.",
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <polygon points="12 2 2 7 12 12 22 7 12 2" />
+          <polyline points="2 17 12 22 22 17" />
+          <polyline points="2 12 12 17 22 12" />
+        </svg>
+      ),
+    },
+    {
+      title: "Social Media Design",
+      description:
+        "Engaging visual content that boosts your social media presence and interaction.",
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+          <line x1="9" y1="12" x2="15" y2="12" />
+          <line x1="12" y1="9" x2="12" y2="15" />
+        </svg>
+      ),
+    },
+    {
+      title: "Flyers & Posters",
+      description:
+        "Compelling print designs that grab attention and communicate your message effectively.",
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8l-7 7v11a2 2 0 0 0 2 2z" />
+          <polyline points="14 2 14 8 20 8" />
+        </svg>
+      ),
+    },
+  ];
+
+  const portfolioStats = [
+    {
+      title: "Happy Clients",
+      value: "50+",
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        </svg>
+      ),
+    },
+    {
+      title: "Projects Completed",
+      value: "100+",
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+          <line x1="12" y1="8" x2="12" y2="16" />
+          <line x1="8" y1="12" x2="16" y2="12" />
+        </svg>
+      ),
+    },
+    {
+      title: "Years of Experience",
+      value: "5+",
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <circle cx="12" cy="12" r="10" />
+          <polyline points="12 6 12 12 16 14" />
+        </svg>
+      ),
+    },
+    {
+      title: "Services",
+      value: "4+",
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M6 9H6.01" />
+          <path d="M6 13H6.01" />
+          <path d="M10 9H10.01" />
+          <path d="M10 13H10.01" />
+          <path d="M14 9H14.01" />
+          <path d="M14 13H14.01" />
+          <path d="M18 9H18.01" />
+          <path d="M18 13H18.01" />
+          <path d="M2 16V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2Z" />
+        </svg>
+      ),
+    },
+  ];
+
   return (
     <div
       className={`${isDark ? "dark-mode" : ""} w-full overflow-hidden`}
@@ -150,7 +332,7 @@ const HomePage = () => {
       </div>
 
       {/* About Section with larger image */}
-      <div className="w-full py-20 md:py-28 px-6 sm:px-12 md:px-16">
+      <div className="w-full py-12 md:py-16 px-6 sm:px-12 md:px-16">
         <div className="max-w-7xl px-4 mx-auto">
           <motion.div
             className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center"
@@ -227,9 +409,64 @@ const HomePage = () => {
         </div>
       </div>
 
+      {/* Services Section */}
+      <div className="w-full py-12 md:py-16 px-6 sm:px-12 md:px-16">
+        <div className="max-w-7xl px-4 mx-auto">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            <h2
+              className="text-4xl md:text-5xl font-bold"
+              style={{ color: "var(--color-teal)" }}
+            >
+              My Services
+            </h2>
+            <div
+              className="w-32 h-1 mx-auto mt-5"
+              style={{ backgroundColor: "var(--color-teal)" }}
+            ></div>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {services.map((service, index) => (
+              <motion.div
+                key={index}
+                className="p-6 rounded-lg shadow-lg transition-all duration-300 hover:translate-y-[-5px] hover:shadow-xl flex flex-col items-center text-center"
+                style={bgStyle}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true, margin: "-50px" }}
+              >
+                <div
+                  className="mb-4 w-16 h-16 flex items-center justify-center rounded-full"
+                  style={{
+                    color: "var(--color-teal)",
+                    border: "2px solid var(--color-teal)",
+                  }}
+                >
+                  {service.icon}
+                </div>
+                <h3
+                  className="text-xl font-semibold mb-3"
+                  style={{ color: "var(--color-teal)" }}
+                >
+                  {service.title}
+                </h3>
+                <p className="text-sm opacity-70">{service.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Testimonials Section - Vertical Cards */}
       <div
-        className="w-full py-20 md:py-28 px-6 sm:px-12 md:px-16 bg-opacity-5"
+        className="w-full py-12 md:py-16 px-6 sm:px-12 md:px-16 bg-opacity-5"
         style={{ backgroundColor: isDark ? "#ffffff0d" : "#00000005" }}
       >
         <div className="max-w-7xl px-4 mx-auto">
@@ -297,6 +534,61 @@ const HomePage = () => {
                     <path d="M15 21c3.8-2.2 6-4.8 6-8.5 0-4.4-3.6-8-8-8" />
                   </svg>
                 </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+       {/* Portfolio Stats Section */}
+       <div
+        className="w-full py-20 md:py-28 px-6 sm:px-12 md:px-16 bg-opacity-5"
+        style={{ backgroundColor: isDark ? "#ffffff0d" : "#00000005" }}
+      >
+        <div className="max-w-7xl px-4 mx-auto">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            <h2
+              className="text-4xl md:text-5xl font-bold"
+              style={{ color: "var(--color-teal)" }}
+            >
+              Portfolio Highlights
+            </h2>
+            <div
+              className="w-32 h-1 mx-auto mt-5"
+              style={{ backgroundColor: "var(--color-teal)" }}
+            ></div>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {portfolioStats.map((stat, index) => (
+              <motion.div
+                key={index}
+                className="p-6 rounded-lg shadow-lg transition-all duration-300 hover:translate-y-[-5px] hover:shadow-xl flex flex-col items-center text-center"
+                style={bgStyle}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true, margin: "-50px" }}
+              >
+                <div 
+                  className="mb-4 w-16 h-16 flex items-center justify-center rounded-full"
+                  style={{ color: "var(--color-teal)", border: "2px solid var(--color-teal)" }}
+                >
+                  {stat.icon}
+                </div>
+                <h3 
+                  className="text-3xl font-bold mb-2"
+                  style={{ color: "var(--color-teal)" }}
+                >
+                  {stat.value}
+                </h3>
+                <p className="text-lg opacity-70">{stat.title}</p>
               </motion.div>
             ))}
           </div>
