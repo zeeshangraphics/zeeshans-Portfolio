@@ -292,7 +292,7 @@ const AboutPage = () => {
                 className="text-2xl font-bold mb-4"
                 style={{ color: "var(--color-teal)" }}
               >
-                Software
+                Tools
               </h2>
               <motion.div
                 className="grid grid-cols-1 gap-3"

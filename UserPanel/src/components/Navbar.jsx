@@ -55,7 +55,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link
           to="/"
-          className="text-2xl md:text-3xl font-bold z-10 lg:pl-4"
+          className="text-2xl md:text-3xl font-bold z-10"
           style={{
             color: "var(--color-teal)",
           }}

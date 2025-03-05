@@ -8,6 +8,7 @@ import {
   FaEnvelope,
   FaPhone,
   FaTiktok,
+  FaPalette,
 } from "react-icons/fa";
 import {
   FaFacebookF,
@@ -24,6 +25,25 @@ const Footer = () => {
     { name: "About", path: "/about", icon: <FaUser /> },
     { name: "Portfolio", path: "/portfolio", icon: <FaBriefcase /> },
     { name: "Contact", path: "/contact", icon: <FaEnvelope /> },
+  ];
+
+  const portfolioCategories = [
+    { name: "Branding", path: "/portfolio/branding", icon: <FaPalette /> },
+    {
+      name: "Logo Design",
+      path: "/portfolio/logo-design",
+      icon: <FaPalette />,
+    },
+    {
+      name: "Social Media Design",
+      path: "/portfolio/social-media",
+      icon: <FaPalette />,
+    },
+    {
+      name: "Poster and Flyers",
+      path: "/portfolio/poster-flyers",
+      icon: <FaPalette />,
+    },
   ];
 
   const socialLinks = [
@@ -46,7 +66,7 @@ const Footer = () => {
       name: "LinkedIn",
       icon: <FaLinkedinIn />,
       link: "https://www.linkedin.com/in/yourprofile",
-    }
+    },
   ];
 
   return (
@@ -59,7 +79,7 @@ const Footer = () => {
       }}
     >
       <div className="max-w-screen-xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Company Info */}
           <div className="space-y-4">
             <h3
@@ -104,6 +124,40 @@ const Footer = () => {
                     }
                   >
                     {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Portfolio Categories with Icons */}
+          <div className="space-y-4">
+            <h3
+              className="text-2xl font-semibold"
+              style={{ color: "var(--color-teal)" }}
+            >
+               Categories
+            </h3>
+            <ul className="space-y-3">
+              {portfolioCategories.map((category) => (
+                <li key={category.name} className="flex items-center space-x-2">
+                  <span
+                    style={{ color: "var(--color-teal)", fontSize: "1rem" }}
+                  >
+                    {category.icon}
+                  </span>
+                  <Link
+                    to={category.path}
+                    className="text-sm transition-colors duration-300"
+                    style={{ color: "var(--text-primary)" }}
+                    onMouseOver={(e) =>
+                      (e.target.style.color = "var(--color-teal)")
+                    }
+                    onMouseOut={(e) =>
+                      (e.target.style.color = "var(--text-primary)")
+                    }
+                  >
+                    {category.name}
                   </Link>
                 </li>
               ))}
@@ -177,23 +231,17 @@ const Footer = () => {
                   href={social.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300"
+                  className="w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300 group"
                   style={{
                     backgroundColor: isDark
                       ? "rgba(255,255,255,0.1)"
                       : "rgba(0,0,0,0.1)",
                   }}
-                  onMouseOver={(e) =>
-                    (e.target.style.backgroundColor = "var(--color-teal)")
-                  }
-                  onMouseOut={(e) =>
-                    (e.target.style.backgroundColor = isDark
-                      ? "rgba(255,255,255,0.1)"
-                      : "rgba(0,0,0,0.1)")
-                  }
                   aria-label={social.name}
                 >
-                  {social.icon}
+                  <div className="w-full h-full flex items-center justify-center group-hover:bg-[var(--color-teal)] rounded-full transition-colors duration-300">
+                    {social.icon}
+                  </div>
                 </a>
               ))}
             </div>
