@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { Menu, X, Moon, Sun, ChevronDown } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 
@@ -12,6 +12,15 @@ const Navbar = () => {
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+
+  const navLinkStyle = ({ isActive }) => ({
+    color: isActive
+      ? "var(--color-teal)"
+      : isDark
+      ? "var(--color-grey)"
+      : "var(--color-dark-grey)",
+    transition: "color 0.3s ease",
+  });
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -65,21 +74,9 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-8">
-          <Link
-            to="/home"
-            className="transition"
-            style={{
-              color: isDark ? "var(--color-grey)" : "var(--color-dark-grey)",
-            }}
-            onMouseEnter={(e) => (e.target.style.color = "var(--color-teal)")}
-            onMouseLeave={(e) =>
-              (e.target.style.color = isDark
-                ? "var(--color-grey)"
-                : "var(--color-dark-grey)")
-            }
-          >
+          <NavLink to="/home" style={navLinkStyle} className="transition">
             Home
-          </Link>
+          </NavLink>
 
           {/* Portfolio Dropdown */}
           <div className="relative" ref={dropdownRef}>
@@ -107,55 +104,34 @@ const Navbar = () => {
               }}
             >
               {portfolioCategories.map((category) => (
-                <Link
+                <NavLink
                   key={category.value}
                   to={`/portfolio/${category.value}`}
+                  style={navLinkStyle}
                   className="block px-4 py-3 transition-colors duration-200 hover:bg-[var(--color-teal)] hover:text-white"
-                  style={{
-                    color: isDark
-                      ? "var(--color-grey)"
-                      : "var(--color-dark-grey)",
-                    borderBottom: "1px solid #eaeaea",
-                  }}
                   onClick={() => setIsDropdownOpen(false)}
                 >
                   {category.display}
-                </Link>
+                </NavLink>
               ))}
             </div>
           </div>
 
-          <Link
+          <NavLink
             to="/about"
+            style={navLinkStyle}
             className="transition-colors"
-            style={{
-              color: isDark ? "var(--color-grey)" : "var(--color-dark-grey)",
-            }}
-            onMouseEnter={(e) => (e.target.style.color = "var(--color-teal)")}
-            onMouseLeave={(e) =>
-              (e.target.style.color = isDark
-                ? "var(--color-grey)"
-                : "var(--color-dark-grey)")
-            }
           >
             About
-          </Link>
+          </NavLink>
 
-          <Link
-            to="/contact"
-            className="transition"
-            style={{
-              color: isDark ? "var(--color-grey)" : "var(--color-dark-grey)",
-            }}
-            onMouseEnter={(e) => (e.target.style.color = "var(--color-teal)")}
-            onMouseLeave={(e) =>
-              (e.target.style.color = isDark
-                ? "var(--color-grey)"
-                : "var(--color-dark-grey)")
-            }
-          >
+          <NavLink to="/contact" style={navLinkStyle} className="transition">
             Contact
-          </Link>
+          </NavLink>
+
+          <NavLink to="/services" style={navLinkStyle} className="transition">
+            Services
+          </NavLink>
 
           {/* Theme Toggle Button */}
           <button
@@ -316,6 +292,16 @@ const Navbar = () => {
               onClick={toggleMenu}
             >
               Contact
+            </Link>
+            <Link
+              to="/services"
+              className="py-3 transition-colors hover:text-teal-500"
+              style={{
+                color: isDark ? "var(--color-grey)" : "var(--color-dark-grey)",
+              }}
+              onClick={toggleMenu}
+            >
+              Services
             </Link>
           </div>
         </div>

@@ -2,6 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Client, Databases, Query } from "appwrite";
 
+const SkeletonLoader = () => (
+  <div className="bg-gray-200 animate-pulse rounded-lg">
+    <div className="aspect-square w-full bg-gray-300"></div>
+  </div>
+);
+
 const PortfolioPage = () => {
   const [works, setWorks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -9,8 +15,16 @@ const PortfolioPage = () => {
   const { category } = useParams();
   const navigate = useNavigate();
 
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const imagesPerPage = 6;
+
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Touch swipe states
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
 
   const categoryDisplayNames = {
     branding: "Branding",
@@ -22,6 +36,11 @@ const PortfolioPage = () => {
   const displayCategory = categoryDisplayNames[category] || "";
 
   useEffect(() => {
+    // Reset current page when category changes
+    setCurrentPage(1);
+  }, [category]);
+
+  useEffect(() => {
     if (!category) {
       navigate("/portfolio/branding");
       return;
@@ -29,6 +48,7 @@ const PortfolioPage = () => {
 
     const fetchWorks = async () => {
       try {
+        setLoading(true);
         const client = new Client()
           .setEndpoint(import.meta.env.VITE_APPWRITE_URL)
           .setProject(import.meta.env.VITE_APPWRITE_PROJECT);
@@ -53,7 +73,14 @@ const PortfolioPage = () => {
     fetchWorks();
   }, [category, navigate]);
 
-  // Function to open lightbox with specific image
+  // Pagination logic
+  const indexOfLastImage = currentPage * imagesPerPage;
+  const indexOfFirstImage = indexOfLastImage - imagesPerPage;
+  const currentImages = works.slice(indexOfFirstImage, indexOfLastImage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Lightbox functions
   const openLightbox = (index) => {
     setCurrentImageIndex(index);
     setLightboxOpen(true);
@@ -61,14 +88,13 @@ const PortfolioPage = () => {
     document.body.style.overflow = "hidden";
   };
 
-  // Function to close lightbox
   const closeLightbox = () => {
     setLightboxOpen(false);
     // Restore scrolling
     document.body.style.overflow = "auto";
   };
 
-  // Navigation functions
+  // Navigation functions for lightbox
   const goToPrevious = (e) => {
     e.stopPropagation();
     setCurrentImageIndex((prevIndex) =>
@@ -83,7 +109,7 @@ const PortfolioPage = () => {
     );
   };
 
-  // Handle keyboard navigation
+  // Keyboard navigation for lightbox
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (!lightboxOpen) return;
@@ -106,9 +132,6 @@ const PortfolioPage = () => {
   }, [lightboxOpen, works.length]);
 
   // Touch swipe functionality
-  const [touchStart, setTouchStart] = useState(null);
-  const [touchEnd, setTouchEnd] = useState(null);
-
   const handleTouchStart = (e) => {
     setTouchStart(e.targetTouches[0].clientX);
     setTouchEnd(null);
@@ -132,47 +155,22 @@ const PortfolioPage = () => {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="container section flex flex-col justify-center items-center min-h-screen">
-        <div className="loader mb-4">
-          <div
-            className="spinner"
-            style={{
-              border: "4px solid rgba(0, 0, 0, 0.1)",
-              borderRadius: "50%",
-              borderTop: "5px solid var(--color-teal)",
-              width: "60px",
-              height: "60px",
-              animation: "spin 1s linear infinite",
-            }}
-          ></div>
-        </div>
-        <style jsx>{`
-          @keyframes spin {
-            0% {
-              transform: rotate(0deg);
-            }
-            100% {
-              transform: rotate(360deg);
-            }
-          }
-        `}</style>
-      </div>
-    );
-  }
-
   if (error) {
     return (
-      <div className="container section flex justify-center items-center min-h-screen">
+      <div className="container section flex justify-center items-center min-h-screen w-full max-w-7xl mx-auto px-4">
         <p className="text-accent-primary">{error}</p>
       </div>
     );
   }
 
   return (
-    <div className="container section pt-12 px-4 max-w-7xl mt-12 mb-5">
-      <h1 className="text-3xl lg:text-5xl mb-4">{displayCategory}</h1>
+    <div className="container section pt-12 px-4 w-full max-w-7xl mx-auto mt-12 mb-5">
+      <h1
+        className="text-3xl lg:text-5xl mb-4 font-bold"
+        style={{ color: "var(--color-teal)" }}
+      >
+        {displayCategory}
+      </h1>
 
       <div
         className="mb-8 w-full lg:w-1/2"
@@ -182,24 +180,58 @@ const PortfolioPage = () => {
         }}
       ></div>
 
-      {works.length === 0 ? (
-        <p>No items found in this category.</p>
-      ) : (
+      {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {works.map((work, index) => (
-            <div
-              key={work.$id}
-              className="overflow-hidden rounded-lg shadow-md transition-transform duration-300 hover:shadow-lg hover:scale-105 mb-4 cursor-pointer"
-              onClick={() => openLightbox(index)}
-            >
-              <img
-                src={work.imageUrl}
-                alt={work.title}
-                className="w-full h-64 md:h-72 object-cover"
-              />
-            </div>
+          {[...Array(6)].map((_, index) => (
+            <SkeletonLoader key={index} />
           ))}
         </div>
+      ) : works.length === 0 ? (
+        <p>No items found in this category.</p>
+      ) : (
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 relative z-40">
+            {currentImages.map((work, index) => (
+              <div
+                key={work.$id}
+                className="overflow-hidden rounded-lg shadow-md transition-transform duration-300 hover:shadow-lg hover:scale-105 mb-4 cursor-pointer"
+                onClick={() => openLightbox(indexOfFirstImage + index)}
+              >
+                <img
+                  src={work.imageUrl}
+                  alt={work.title}
+                  className="w-full aspect-square object-cover"
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Pagination */}
+          {works.length > imagesPerPage && (
+            <div className="flex justify-center mt-8">
+              <nav>
+                <ul className="flex space-x-2">
+                  {Array.from({
+                    length: Math.ceil(works.length / imagesPerPage),
+                  }).map((_, index) => (
+                    <li key={index}>
+                      <button
+                        onClick={() => paginate(index + 1)}
+                        className={`px-4 py-2 rounded-md transition-colors ${
+                          currentPage === index + 1
+                            ? "bg-[var(--color-teal)] text-white"
+                            : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                        }`}
+                      >
+                        {index + 1}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
+          )}
+        </>
       )}
 
       {/* Lightbox */}
@@ -238,6 +270,7 @@ const PortfolioPage = () => {
           <div className="max-w-4xl max-h-screen p-4">
             <img
               src={works[currentImageIndex].imageUrl}
+              alt={works[currentImageIndex].title}
               className="max-h-full max-w-full object-contain mx-auto"
             />
           </div>
