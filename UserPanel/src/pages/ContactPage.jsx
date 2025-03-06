@@ -1,11 +1,8 @@
-"use client";
-
 import { useState } from "react";
 import { useTheme } from "../context/ThemeContext";
 import Swal from "sweetalert2";
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
-import PageHeading from "../components/PageHeading";
 
 const ContactPage = () => {
   const { isDark } = useTheme();
