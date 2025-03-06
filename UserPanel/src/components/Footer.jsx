@@ -79,7 +79,7 @@ const Footer = () => {
       }}
     >
       <div className="max-w-screen-xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Company Info */}
           <div className="space-y-4">
             <h3
@@ -136,7 +136,7 @@ const Footer = () => {
               className="text-2xl font-semibold"
               style={{ color: "var(--color-teal)" }}
             >
-               Categories
+              Categories
             </h3>
             <ul className="space-y-3">
               {portfolioCategories.map((category) => (

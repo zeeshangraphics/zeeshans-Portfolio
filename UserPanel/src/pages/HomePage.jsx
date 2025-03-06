@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Users, Plus, Clock, Layout, ChevronDown, Quote } from "lucide-react";
 import Services from "../components/Services";
+import GridMotion from "../components/GridMotion";
 
 const HomePage = () => {
   const { isDark } = useTheme();
@@ -21,6 +22,36 @@ const HomePage = () => {
     backgroundColor: isDark ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.05)",
     borderLeft: "4px solid var(--color-teal)",
   };
+
+  const gridImages = [
+    "/Macbook.jpg",
+    "/Logo2.jpg",
+    "/Gamepad.jpg",
+    "/Logo9.jpg",
+    "/Mouse.jpg",
+    "/pic2.jpg",
+    "/pic3.jpg",
+    "/pic.jpg",
+    "/Watch1.jpg",
+    "/Macbook.jpg",
+    "/Logo2.jpg",
+    "/Gamepad.jpg",
+    "/Logo9.jpg",
+    "/Mouse.jpg",
+    "/pic2.jpg",
+    "/pic3.jpg",
+    "/pic.jpg",
+    "/Watch1.jpg",
+    "/Macbook.jpg",
+    "/Logo2.jpg",
+    "/Gamepad.jpg",
+    "/Logo9.jpg",
+    "/Mouse.jpg",
+    "/pic2.jpg",
+    "/pic3.jpg",
+    "/pic.jpg",
+    "/Watch1.jpg",
+  ];
 
   const testimonials = [
     {
@@ -91,56 +122,74 @@ const HomePage = () => {
       {/* Hero Section with updated text */}
       <div
         ref={heroRef}
-        className="relative min-h-screen w-full flex items-center  justify-center overflow-hidden"
+        className="relative min-h-screen w-full flex items-center justify-center overflow-hidden"
       >
-        <motion.div
-          className="relative z-10 max-w-7xl w-full px-4 mx-auto"
-          style={{
-            opacity: heroOpacity,
-            scale: heroScale,
-            y: heroY,
-          }}
-        >
+        {/* Hero content wrapper */}
+        <div className="relative z-10 max-w-7xl w-full px-4 mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          {/* Left side: Text content */}
           <motion.div
+            style={{
+              opacity: heroOpacity,
+              scale: heroScale,
+              y: heroY,
+            }}
+          >
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1.2 }}
+            >
+              <motion.p
+                className="text-lg sm:text-xl md:text-2xl font-medium text-center md:text-left"
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.6 }}
+              >
+                Hi there, I'm
+              </motion.p>
+
+              <motion.h1
+                className="text-5xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-center md:text-left mt-2"
+                style={{ color: "var(--color-teal)" }}
+                initial={{ y: 50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                Muhammad Zeeshan
+              </motion.h1>
+
+              <motion.p
+                className="text-lg sm:text-xl md:text-2xl mt-6 md:mt-8 max-w-3xl text-center md:text-left"
+                initial={{ y: 50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
+                A graphic designer passionate about creating visual experiences
+                that captivate audiences and elevate brands. I transform ideas
+                into meaningful design that speaks volumes.
+              </motion.p>
+            </motion.div>
+          </motion.div>
+
+          {/* Right side: GridMotion component */}
+          <motion.div
+            className="hidden md:block h-screen"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1.2 }}
+            transition={{ duration: 1.2, delay: 0.6 }}
           >
-            <motion.p
-              className="text-lg sm:text-xl md:text-2xl font-medium text-center md:text-left"
-              initial={{ y: 30, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.6 }}
-            >
-              hi there,
-            </motion.p>
-
-            <motion.h1
-              className="text-5xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-center md:text-left mt-2"
-              style={{ color: "var(--color-teal)" }}
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              I'm Muhammad Zeeshan
-            </motion.h1>
-
-            <motion.p
-              className="text-lg sm:text-xl md:text-2xl mt-6 md:mt-8 max-w-3xl text-center md:text-left"
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              A graphic designer passionate about creating visual experiences
-              that captivate audiences and elevate brands. I transform ideas
-              into meaningful design that speaks volumes.
-            </motion.p>
+            <div className="h-full relative">
+              <GridMotion
+                items={gridImages}
+                gradientColor={isDark ? "#00857099" : "#008570"}
+              />
+            </div>
           </motion.div>
-        </motion.div>
+        </div>
 
         {/* Scroll indicator*/}
-        <motion.div
-          className="absolute bottom-24 left-1/2 transform -translate-x-1/2 z-10 cursor-pointer"
+        {/* <motion.div
+          className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10 cursor-pointer"
           animate={{
             y: [0, 10, 0],
           }}
@@ -155,7 +204,7 @@ const HomePage = () => {
           }}
         >
           <ChevronDown size={28} style={{ color: "var(--color-teal)" }} />
-        </motion.div>
+        </motion.div> */}
       </div>
 
       {/* About Section with circular image */}
@@ -411,8 +460,8 @@ const HomePage = () => {
             <button
               className="px-8 py-4 rounded-lg font-medium text-lg transition-all duration-300"
               style={{
-                color: "white",
                 border: "2px solid var(--color-teal)",
+                color: `${isDark ? "white" : "var(--color-dark-grey)"}`,
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = "var(--color-teal)";
@@ -420,7 +469,7 @@ const HomePage = () => {
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = "transparent";
-                e.currentTarget.style.color = "var(--text-primary)";
+                e.currentTarget.style.color = "var(--color-dark-grey)";
               }}
             >
               Get In Touch

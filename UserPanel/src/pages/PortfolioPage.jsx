@@ -4,8 +4,8 @@ import { Client, Databases, Query } from "appwrite";
 import { motion } from "framer-motion";
 
 const SkeletonLoader = () => (
-  <div className="bg-gray-200 animate-pulse rounded-lg">
-    <div className="aspect-square w-full bg-gray-300"></div>
+  <div className="overflow-hidden rounded-lg shadow-md mb-4">
+    <div className="aspect-square w-full bg-gray-200 dark:bg-gray-700 animate-pulse"></div>
   </div>
 );
 
@@ -172,24 +172,28 @@ const PortfolioPage = () => {
   return (
     <div className="container section pt-12 px-4 w-full max-w-7xl mx-auto mt-12 mb-5">
       <motion.h2
-          className="text-4xl lg:text-5xl font-bold text-center mb-8"
-          style={{ color: "var(--color-teal)" }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-        >
-          {displayCategory}
-        </motion.h2>
-        <div className="w-24 h-1 bg-[var(--color-teal)] mx-auto mb-12"></div>
+        className="text-4xl lg:text-5xl font-bold text-center mb-8"
+        style={{ color: "var(--color-teal)" }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+      >
+        {displayCategory}
+      </motion.h2>
+      <div className="w-24 h-1 bg-[var(--color-teal)] mx-auto mb-12"></div>
 
       {loading ? (
-        <div className="fixed inset-0 bg-white bg-opacity-70 z-50 flex flex-col justify-center items-center">
-          <div className="text-center mb-4 text-xl font-medium">Loading...</div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {[...Array(6)].map((_, index) => (
-              <SkeletonLoader key={index} />
-            ))}
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 relative z-40">
+          {[...Array(6)].map((_, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <SkeletonLoader />
+            </motion.div>
+          ))}
         </div>
       ) : works.length === 0 ? (
         <p>No items found in this category.</p>
@@ -226,7 +230,7 @@ const PortfolioPage = () => {
                         className={`px-4 py-2 rounded-md transition-colors ${
                           currentPage === index + 1
                             ? "bg-[var(--color-teal)] text-white"
-                            : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                            : "bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
                         }`}
                       >
                         {index + 1}
