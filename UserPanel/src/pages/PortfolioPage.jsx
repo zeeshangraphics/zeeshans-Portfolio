@@ -36,8 +36,9 @@ const PortfolioPage = () => {
   const displayCategory = categoryDisplayNames[category] || "";
 
   useEffect(() => {
-    // Reset current page when category changes
+    // Reset current page and set loading to true when category changes
     setCurrentPage(1);
+    setLoading(true);
   }, [category]);
 
   useEffect(() => {
@@ -48,7 +49,6 @@ const PortfolioPage = () => {
 
     const fetchWorks = async () => {
       try {
-        setLoading(true);
         const client = new Client()
           .setEndpoint(import.meta.env.VITE_APPWRITE_URL)
           .setProject(import.meta.env.VITE_APPWRITE_PROJECT);
@@ -70,7 +70,12 @@ const PortfolioPage = () => {
       }
     };
 
-    fetchWorks();
+    // Small delay to ensure loading state is shown
+    const timeoutId = setTimeout(() => {
+      fetchWorks();
+    }, 100);
+
+    return () => clearTimeout(timeoutId);
   }, [category, navigate]);
 
   // Pagination logic
@@ -181,10 +186,13 @@ const PortfolioPage = () => {
       ></div>
 
       {loading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {[...Array(6)].map((_, index) => (
-            <SkeletonLoader key={index} />
-          ))}
+        <div className="fixed inset-0 bg-white bg-opacity-70 z-50 flex flex-col justify-center items-center">
+          <div className="text-center mb-4 text-xl font-medium">Loading...</div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {[...Array(6)].map((_, index) => (
+              <SkeletonLoader key={index} />
+            ))}
+          </div>
         </div>
       ) : works.length === 0 ? (
         <p>No items found in this category.</p>
@@ -201,6 +209,7 @@ const PortfolioPage = () => {
                   src={work.imageUrl}
                   alt={work.title}
                   className="w-full aspect-square object-cover"
+                  loading="lazy"
                 />
               </div>
             ))}

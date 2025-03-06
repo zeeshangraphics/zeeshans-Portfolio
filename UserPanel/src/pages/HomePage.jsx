@@ -301,7 +301,7 @@ const HomePage = () => {
                 style={bgStyle}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
                 viewport={{ once: true, margin: "-10%" }}
               >
                 <div className="flex items-center space-x-3 mb-4">
