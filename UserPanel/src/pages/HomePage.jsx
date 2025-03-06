@@ -27,7 +27,7 @@ const HomePage = () => {
       company: "Elevate Brands",
       content:
         "Muhammad's eye for detail transformed our brand identity. The logo design perfectly captures our company ethos while remaining timeless and versatile.",
-      avatar: "https://i.pravatar.cc/150?img=32",
+      initials: "SJ",
     },
     {
       name: "David Chen",
@@ -35,7 +35,7 @@ const HomePage = () => {
       company: "TechSphere",
       content:
         "Working with Muhammad was effortless. He took my vague ideas and transformed them into a cohesive visual identity that has helped my startup stand out in a crowded market.",
-      avatar: "https://i.pravatar.cc/150?img=53",
+      initials: "DC",
     },
     {
       name: "Amina Patel",
@@ -43,7 +43,7 @@ const HomePage = () => {
       company: "Artisan Studios",
       content:
         "The social media designs Muhammad created for our campaign exceeded expectations. Our engagement increased by 47% in the first month of implementation.",
-      avatar: "https://i.pravatar.cc/150?img=44",
+      initials: "AP",
     },
     {
       name: "Michael Rodriguez",
@@ -51,25 +51,9 @@ const HomePage = () => {
       company: "Rodriguez Photography",
       content:
         "As a fellow creative professional, I'm extremely particular about design. Muhammad understood my vision immediately and delivered a brand identity that perfectly represents my photography style.",
-      avatar: "https://i.pravatar.cc/150?img=12",
-    },
-    {
-      name: "Sarah Johnson",
-      role: "Marketing Director",
-      content:
-        "Zeeshan transformed our brand identity completely. His attention to detail and creative vision helped us stand out in a crowded market.",
-      avatar: "https://i.pravatar.cc/150?img=23",
-    },
-    {
-      name: "David Smith",
-      role: "Product Manager",
-      company: "Pell Software",
-      content:
-        "His designs consistently deliver impact. The visual identity he created increased our engagement by 40%.",
-      avatar: "https://i.pravatar.cc/150?img=11",
+      initials: "MR",
     },
   ];
-
   const services = [
     {
       title: "Branding",
@@ -260,13 +244,13 @@ const HomePage = () => {
         color: "var(--text-primary)",
       }}
     >
-      {/* Hero Section with parallax effect */}
+      {/* Hero Section with updated text */}
       <div
         ref={heroRef}
         className="relative min-h-screen w-full flex items-center mt-3 justify-center overflow-hidden"
       >
         <motion.div
-          className="relative z-10 w-full px-6 sm:px-12 md:px-24"
+          className="relative z-10 max-w-7xl w-full px-4 mx-auto"
           style={{
             opacity: heroOpacity,
             scale: heroScale,
@@ -274,20 +258,27 @@ const HomePage = () => {
           }}
         >
           <motion.div
-            className="max-w-7xl px-4 mx-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1.2 }}
           >
+            <motion.p
+              className="text-lg sm:text-xl md:text-2xl font-medium text-center md:text-left"
+              initial={{ y: 30, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.6 }}
+            >
+              hi there,
+            </motion.p>
+
             <motion.h1
-              className="text-5xl sm:text-4xl md:text-7xl lg:text-8xl font-bold leading-tight text-center md:text-left"
+              className="text-5xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-center md:text-left mt-2"
               style={{ color: "var(--color-teal)" }}
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              Transforming <br className="hidden md:block" />
-              <span className="block mt-2">Ideas into Art</span>
+              I'm Muhammad Zeeshan
             </motion.h1>
 
             <motion.p
@@ -296,15 +287,16 @@ const HomePage = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              Crafting visual experiences that captivate audiences and elevate
-              brands. Where creativity meets purpose.
+              A graphic designer passionate about creating visual experiences
+              that captivate audiences and elevate brands. I transform ideas
+              into meaningful design that speaks volumes.
             </motion.p>
           </motion.div>
         </motion.div>
 
-        {/* Scroll indicator */}
+        {/* Scroll indicator*/}
         <motion.div
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10"
+          className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10 cursor-pointer"
           animate={{
             y: [0, 10, 0],
           }}
@@ -313,11 +305,15 @@ const HomePage = () => {
             repeat: Infinity,
             ease: "easeInOut",
           }}
+          onClick={() => {
+            const aboutSection = document.getElementById("about-section");
+            aboutSection.scrollIntoView({ behavior: "smooth" });
+          }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width="28"
+            height="28"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -331,26 +327,26 @@ const HomePage = () => {
         </motion.div>
       </div>
 
-      {/* About Section with larger image */}
-      <div className="w-full py-12 md:py-16 px-6 sm:px-12 md:px-16">
+      {/* About Section with circular image - Updated grid ratio to 1:2 */}
+      <div id="about-section" className="w-full py-16 md:py-24">
         <div className="max-w-7xl px-4 mx-auto">
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center"
+            className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-0 items-center" // Removed gap between columns
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             viewport={{ once: true, margin: "-100px" }}
           >
-            {/* Larger image on left */}
+            {/* Circular image - Takes 1 column - Increased size, removed padding/margin */}
             <motion.div
               className="flex justify-center md:justify-start"
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
               viewport={{ once: true, margin: "-100px" }}
             >
               <div
-                className="relative w-80 h-80 sm:w-96 sm:h-96 border-4 border-solid overflow-hidden"
+                className="relative w-80 h-80 sm:w-96 sm:h-96 md:w-full md:h-auto aspect-square rounded-full border-4 border-solid overflow-hidden shadow-xl" // Increased size, added aspect-square for responsiveness
                 style={{ borderColor: "var(--color-teal)" }}
               >
                 <img
@@ -361,32 +357,37 @@ const HomePage = () => {
               </div>
             </motion.div>
 
-            {/* Text on right with improved copy */}
+            {/* Text content - Takes 2 columns */}
             <motion.div
-              className="space-y-6 md:space-y-8"
+              className="space-y-8 md:col-span-2 md:pl-8" // Added left padding to create space from image
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
               viewport={{ once: true, margin: "-100px" }}
             >
               <h2
-                className="text-3xl sm:text-4xl md:text-5xl font-bold"
+                className="text-3xl sm:text-3xl md:text-5xl font-bold"
                 style={{ color: "var(--color-teal)" }}
               >
                 Visual Storytelling
               </h2>
               <div
-                className="w-20 h-1"
+                className="w-32 h-1.5"
                 style={{ backgroundColor: "var(--color-teal)" }}
               ></div>
-              <p className="text-lg md:text-xl leading-relaxed">
+              <p className="text-xl md:text-xl lg:text-2xl leading-relaxed">
                 I can bring your creative vision to life. Whether you need
                 branding, web design, or a complete visual identity, I'm here to
                 help you stand out in today's competitive market.
               </p>
+              <p className="text-md md:text-md lg:text-xl leading-relaxed opacity-80">
+                With years of experience and a keen eye for detail, I craft
+                designs that resonate with your audience and communicate your
+                brand's unique story in a compelling way.
+              </p>
               <Link to="/about">
                 <button
-                  className="px-8 py-3 rounded-lg font-medium text-lg transition-all duration-300 mt-4"
+                  className="px-10 py-4 rounded-lg font-medium text-xl transition-all duration-300 mt-6" // Removed hover:scale-105
                   style={{
                     backgroundColor: "transparent",
                     color: "var(--text-primary)",
@@ -409,15 +410,18 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* Services Section */}
-      <div className="w-full py-12 md:py-16 px-6 sm:px-12 md:px-16">
+      {/* Services Section - Enhanced smooth animations */}
+      <div className="w-full py-16 md:py-24">
         <div className="max-w-7xl px-4 mx-auto">
           <motion.div
             className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true, margin: "-100px" }}
+            transition={{
+              duration: 0.7,
+              ease: [0.22, 1, 0.36, 1], // Custom cubic-bezier for smooth easing
+            }}
+            viewport={{ once: true, margin: "-10%" }}
           >
             <h2
               className="text-4xl md:text-5xl font-bold"
@@ -431,26 +435,47 @@ const HomePage = () => {
             ></div>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {services.map((service, index) => (
               <motion.div
                 key={index}
-                className="p-6 rounded-lg shadow-lg transition-all duration-300 hover:translate-y-[-5px] hover:shadow-xl flex flex-col items-center text-center"
+                className="p-6 rounded-lg shadow-lg transition-all duration-500 hover:translate-y-[-5px] hover:shadow-xl flex flex-col items-center text-center h-full"
                 style={bgStyle}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true, margin: "-50px" }}
+                initial={{ opacity: 0, y: 60, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 15,
+                  mass: 1,
+                  delay: index * 0.1,
+                }}
+                viewport={{ once: true, margin: "-5%" }}
+                whileHover={{
+                  y: -8,
+                  transition: {
+                    type: "spring",
+                    stiffness: 400,
+                    damping: 10,
+                  },
+                }}
               >
-                <div
+                <motion.div
                   className="mb-4 w-16 h-16 flex items-center justify-center rounded-full"
                   style={{
                     color: "var(--color-teal)",
                     border: "2px solid var(--color-teal)",
                   }}
+                  initial={{ scale: 0.8, rotate: -10 }}
+                  whileInView={{ scale: 1, rotate: 0 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 200,
+                    delay: 0.2 + index * 0.1,
+                  }}
                 >
                   {service.icon}
-                </div>
+                </motion.div>
                 <h3
                   className="text-xl font-semibold mb-3"
                   style={{ color: "var(--color-teal)" }}
@@ -464,18 +489,21 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* Testimonials Section - Vertical Cards */}
+      {/* Testimonials Section - Enhanced smooth animations */}
       <div
-        className="w-full py-12 md:py-16 px-6 sm:px-12 md:px-16 bg-opacity-5"
+        className="w-full py-16 md:py-24 bg-opacity-5"
         style={{ backgroundColor: isDark ? "#ffffff0d" : "#00000005" }}
       >
         <div className="max-w-7xl px-4 mx-auto">
           <motion.div
             className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true, margin: "-100px" }}
+            transition={{
+              duration: 0.7,
+              ease: [0.22, 1, 0.36, 1], // Custom cubic-bezier for smooth easing
+            }}
+            viewport={{ once: true, margin: "-10%" }}
           >
             <h2
               className="text-4xl md:text-5xl font-bold"
@@ -489,39 +517,70 @@ const HomePage = () => {
             ></div>
           </motion.div>
 
-          {/* Vertical testimonial cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Responsive testimonial cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {testimonials.map((testimonial, index) => (
               <motion.div
                 key={index}
-                className="p-6 rounded-lg shadow-lg transition-all duration-300 hover:translate-y-[-5px] hover:shadow-xl flex flex-col"
+                className="p-6 rounded-lg shadow-lg transition-all duration-500 hover:shadow-xl flex flex-col h-full relative"
                 style={bgStyle}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true, margin: "-50px" }}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40, y: 20 }}
+                whileInView={{ opacity: 1, x: 0, y: 0 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 70,
+                  damping: 20,
+                  delay: index * 0.15,
+                }}
+                viewport={{ once: true, margin: "-5%" }}
               >
-                <div className="flex items-center space-x-3 mb-4">
-                  <img
-                    src={testimonial.avatar}
-                    alt={testimonial.name}
-                    className="w-16 h-16 rounded-full object-cover"
-                  />
+                <motion.div
+                  className="flex items-center space-x-3 mb-4"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ delay: 0.3 + index * 0.15, duration: 0.5 }}
+                >
+                  <motion.div
+                    className="w-16 h-16 rounded-full flex items-center justify-center text-gray-700 font-medium text-lg bg-gray-200"
+                    initial={{ scale: 0.8 }}
+                    whileInView={{ scale: 1 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 200,
+                      delay: 0.4 + index * 0.15,
+                    }}
+                  >
+                    {testimonial.initials}
+                  </motion.div>
                   <div>
                     <h3 className="font-semibold">{testimonial.name}</h3>
                     <p className="text-xs opacity-70">{testimonial.role}</p>
                     <p className="text-xs opacity-70">{testimonial.company}</p>
                   </div>
-                </div>
+                </motion.div>
 
-                <div className="flex-grow">
+                <motion.div
+                  className="flex-grow"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ delay: 0.5 + index * 0.15, duration: 0.7 }}
+                >
                   <p className="italic text-sm leading-relaxed">
                     {testimonial.content}
                   </p>
-                </div>
+                </motion.div>
 
-                {/* Quotation mark */}
-                <div className="absolute bottom-4 right-4 opacity-10">
+                {/* Animated Quotation mark */}
+                <motion.div
+                  className="absolute bottom-4 right-4 opacity-10"
+                  initial={{ opacity: 0, scale: 0.5, rotate: 10 }}
+                  whileInView={{ opacity: 0.1, scale: 1, rotate: 0 }}
+                  transition={{
+                    delay: 0.6 + index * 0.15,
+                    duration: 0.8,
+                    ease: "easeOut",
+                  }}
+                >
                   <svg
                     width="32"
                     height="32"
@@ -533,25 +592,28 @@ const HomePage = () => {
                     <path d="M3 21c3.8-2.2 6-4.8 6-8.5 0-4.4-3.6-8-8-8" />
                     <path d="M15 21c3.8-2.2 6-4.8 6-8.5 0-4.4-3.6-8-8-8" />
                   </svg>
-                </div>
+                </motion.div>
               </motion.div>
             ))}
           </div>
         </div>
       </div>
 
-       {/* Portfolio Stats Section */}
-       <div
-        className="w-full py-20 md:py-28 px-6 sm:px-12 md:px-16 bg-opacity-5"
+      {/* Portfolio Stats Section - Enhanced smooth animations */}
+      <div
+        className="w-full py-16 md:py-24 bg-opacity-5"
         style={{ backgroundColor: isDark ? "#ffffff0d" : "#00000005" }}
       >
         <div className="max-w-7xl px-4 mx-auto">
           <motion.div
             className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true, margin: "-100px" }}
+            transition={{
+              duration: 0.7,
+              ease: [0.22, 1, 0.36, 1], // Custom cubic-bezier for smooth easing
+            }}
+            viewport={{ once: true, margin: "-10%" }}
           >
             <h2
               className="text-4xl md:text-5xl font-bold"
@@ -565,30 +627,70 @@ const HomePage = () => {
             ></div>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {portfolioStats.map((stat, index) => (
               <motion.div
                 key={index}
-                className="p-6 rounded-lg shadow-lg transition-all duration-300 hover:translate-y-[-5px] hover:shadow-xl flex flex-col items-center text-center"
+                className="p-6 rounded-lg shadow-lg transition-all duration-500 hover:shadow-xl flex flex-col items-center text-center h-full"
                 style={bgStyle}
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 80 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true, margin: "-50px" }}
+                transition={{
+                  type: "spring",
+                  stiffness: 50,
+                  damping: 20,
+                  delay: index * 0.15,
+                }}
+                viewport={{ once: true, margin: "-5%" }}
+                whileHover={{
+                  scale: 1.05,
+                  transition: {
+                    type: "spring",
+                    stiffness: 200,
+                    damping: 25,
+                  },
+                }}
               >
-                <div 
+                <motion.div
                   className="mb-4 w-16 h-16 flex items-center justify-center rounded-full"
-                  style={{ color: "var(--color-teal)", border: "2px solid var(--color-teal)" }}
+                  style={{
+                    color: "var(--color-teal)",
+                    border: "2px solid var(--color-teal)",
+                  }}
+                  initial={{ scale: 0, rotate: -15 }}
+                  whileInView={{ scale: 1, rotate: 0 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 200,
+                    damping: 15,
+                    delay: 0.3 + index * 0.15,
+                  }}
                 >
                   {stat.icon}
-                </div>
-                <h3 
+                </motion.div>
+                <motion.h3
                   className="text-3xl font-bold mb-2"
                   style={{ color: "var(--color-teal)" }}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{
+                    delay: 0.5 + index * 0.15,
+                    duration: 0.8,
+                  }}
                 >
                   {stat.value}
-                </h3>
-                <p className="text-lg opacity-70">{stat.title}</p>
+                </motion.h3>
+                <motion.p
+                  className="text-lg opacity-70"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 0.7 }}
+                  transition={{
+                    delay: 0.6 + index * 0.15,
+                    duration: 0.8,
+                  }}
+                >
+                  {stat.title}
+                </motion.p>
               </motion.div>
             ))}
           </div>
@@ -597,13 +699,13 @@ const HomePage = () => {
 
       {/* CTA Section */}
       <motion.div
-        className="w-full py-20 md:py-28 px-6 sm:px-12 md:px-16 text-center"
+        className="w-full py-16 md:py-24 text-center"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
         viewport={{ once: true, margin: "-100px" }}
       >
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-7xl px-4 mx-auto">
           <h2
             className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6"
             style={{ color: "var(--color-teal)" }}
