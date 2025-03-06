@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Client, Databases, Query } from "appwrite";
+import { motion } from "framer-motion";
 
 const SkeletonLoader = () => (
   <div className="bg-gray-200 animate-pulse rounded-lg">
@@ -170,20 +171,16 @@ const PortfolioPage = () => {
 
   return (
     <div className="container section pt-12 px-4 w-full max-w-7xl mx-auto mt-12 mb-5">
-      <h1
-        className="text-3xl lg:text-5xl mb-4 font-bold"
-        style={{ color: "var(--color-teal)" }}
-      >
-        {displayCategory}
-      </h1>
-
-      <div
-        className="mb-8 w-full lg:w-1/2"
-        style={{
-          height: "2px",
-          backgroundColor: "var(--color-teal)",
-        }}
-      ></div>
+      <motion.h2
+          className="text-4xl lg:text-5xl font-bold text-center mb-8"
+          style={{ color: "var(--color-teal)" }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+        >
+          {displayCategory}
+        </motion.h2>
+        <div className="w-24 h-1 bg-[var(--color-teal)] mx-auto mb-12"></div>
 
       {loading ? (
         <div className="fixed inset-0 bg-white bg-opacity-70 z-50 flex flex-col justify-center items-center">

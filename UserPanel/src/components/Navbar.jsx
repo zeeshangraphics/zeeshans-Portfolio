@@ -74,7 +74,7 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-8">
-          <NavLink to="/home" style={navLinkStyle} className="transition">
+          <NavLink to="/" style={navLinkStyle} className="transition">
             Home
           </NavLink>
 
@@ -117,6 +117,10 @@ const Navbar = () => {
             </div>
           </div>
 
+          <NavLink to="/services" style={navLinkStyle} className="transition">
+            Services
+          </NavLink>
+
           <NavLink
             to="/about"
             style={navLinkStyle}
@@ -127,10 +131,6 @@ const Navbar = () => {
 
           <NavLink to="/contact" style={navLinkStyle} className="transition">
             Contact
-          </NavLink>
-
-          <NavLink to="/services" style={navLinkStyle} className="transition">
-            Services
           </NavLink>
 
           {/* Theme Toggle Button */}
@@ -212,7 +212,7 @@ const Navbar = () => {
         >
           <div className="flex flex-col p-4">
             <Link
-              to="/home"
+              to="/"
               className="py-3 transition-colors hover:text-teal-500"
               style={{
                 color: isDark ? "var(--color-grey)" : "var(--color-dark-grey)",
@@ -272,6 +272,17 @@ const Navbar = () => {
             </div>
 
             <Link
+              to="/services"
+              className="py-3 transition-colors hover:text-teal-500"
+              style={{
+                color: isDark ? "var(--color-grey)" : "var(--color-dark-grey)",
+              }}
+              onClick={toggleMenu}
+            >
+              Services
+            </Link>
+
+            <Link
               to="/about"
               className="py-3 transition-colors hover:text-teal-500"
               style={{
@@ -291,16 +302,6 @@ const Navbar = () => {
               onClick={toggleMenu}
             >
               Contact
-            </Link>
-            <Link
-              to="/services"
-              className="py-3 transition-colors hover:text-teal-500"
-              style={{
-                color: isDark ? "var(--color-grey)" : "var(--color-dark-grey)",
-              }}
-              onClick={toggleMenu}
-            >
-              Services
             </Link>
           </div>
         </div>

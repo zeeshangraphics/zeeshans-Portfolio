@@ -35,7 +35,6 @@ function App() {
           <div className="flex-grow pt-14">
             <Routes>
               <Route path="/contact" element={<ContactPage />} />
-              <Route path="/home" element={<HomePage />} />
               <Route path="/" element={<HomePage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/services" element={<ServicesPage />} />
