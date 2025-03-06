@@ -222,7 +222,6 @@ const Navbar = () => {
               Home
             </Link>
 
-            {/* Mobile Portfolio Dropdown */}
             <div ref={mobileDropdownRef}>
               <button
                 onClick={toggleDropdown}

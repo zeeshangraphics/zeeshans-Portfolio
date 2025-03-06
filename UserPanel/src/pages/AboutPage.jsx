@@ -132,7 +132,6 @@ const AboutPage = () => {
               </motion.div>
             </motion.div>
 
-            {/* Profile image with animation */}
             <motion.div
               className="hidden lg:flex justify-center items-center"
               variants={profileImageVariants}
@@ -156,7 +155,6 @@ const AboutPage = () => {
         </div>
       </div>
 
-      {/* Main Content in Cards Layout */}
       <div className="max-w-6xl mx-auto px-6 lg:px-8 pb-20">
         <motion.div
           className="grid grid-cols-1 lg:grid-cols-2 gap-6"
@@ -228,7 +226,6 @@ const AboutPage = () => {
 
           {/* Creative Fields & Software Card */}
           <motion.div className="space-y-6" variants={staggerContainer}>
-            {/* Creative Fields Card */}
             <motion.div
               className="p-6 rounded-lg shadow-lg"
               style={bgStyle}
@@ -281,7 +278,7 @@ const AboutPage = () => {
               </motion.div>
             </motion.div>
 
-            {/* Software Card */}
+            {/* Tools Card */}
             <motion.div
               className="p-6 rounded-lg shadow-lg"
               style={bgStyle}

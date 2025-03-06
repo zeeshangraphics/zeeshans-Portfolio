@@ -371,7 +371,7 @@ const ContactPage = () => {
                   fontWeight: "500",
                   cursor: isSubmitting ? "wait" : "pointer",
                   opacity: isSubmitting ? 0.7 : 1,
-                  transition: "background-color 0.2s ease, color 0.2s ease", // Smooth color change
+                  transition: "background-color 0.2s ease, color 0.2s ease", 
                 }}
                 onMouseEnter={() => setHoveredButton(true)}
                 onMouseLeave={() => setHoveredButton(false)}
