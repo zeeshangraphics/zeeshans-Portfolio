@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useTheme } from "../context/ThemeContext"; // Assuming you have a ThemeContext
 
 const BackgroundAnimations = () => {
+  const { isDark } = useTheme(); // Get dark mode state from context
   const [windowSize, setWindowSize] = useState({
     width: typeof window !== "undefined" ? window.innerWidth : 0,
     height: typeof window !== "undefined" ? window.innerHeight : 0,
@@ -19,7 +21,7 @@ const BackgroundAnimations = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Generate design elements
+  // Generate design elements using your theme colors
   const designElements = [
     {
       type: "circle",
@@ -29,7 +31,7 @@ const BackgroundAnimations = () => {
       rotation: 360,
       duration: 120,
       delay: 0,
-      color: "rgba(0, 226, 161, 0.08)",
+      color: isDark ? "rgba(255, 158, 1, 0.08)" : "rgba(255, 158, 1, 0.1)", // Using --color-teal (FF9E01)
     },
     {
       type: "circle",
@@ -39,7 +41,7 @@ const BackgroundAnimations = () => {
       rotation: -360,
       duration: 150,
       delay: 5,
-      color: "rgba(0, 226, 161, 0.05)",
+      color: isDark ? "rgba(255, 158, 1, 0.05)" : "rgba(255, 158, 1, 0.07)",
     },
     {
       type: "square",
@@ -49,7 +51,7 @@ const BackgroundAnimations = () => {
       rotation: 720,
       duration: 180,
       delay: 8,
-      color: "rgba(0, 226, 161, 0.06)",
+      color: isDark ? "rgba(224, 224, 224, 0.04)" : "rgba(85, 85, 85, 0.04)", // Using --color-grey and --color-dark-grey
     },
     {
       type: "triangle",
@@ -59,7 +61,7 @@ const BackgroundAnimations = () => {
       rotation: -720,
       duration: 200,
       delay: 12,
-      color: "rgba(0, 226, 161, 0.07)",
+      color: isDark ? "rgba(255, 158, 1, 0.07)" : "rgba(255, 158, 1, 0.09)",
     },
     {
       type: "pentagon",
@@ -69,7 +71,7 @@ const BackgroundAnimations = () => {
       rotation: 540,
       duration: 160,
       delay: 18,
-      color: "rgba(0, 226, 161, 0.04)",
+      color: isDark ? "rgba(224, 224, 224, 0.03)" : "rgba(18, 18, 18, 0.03)", // Using --color-grey and --color-black
     },
   ];
 
