@@ -64,7 +64,7 @@ const Services = ({ isDark }) => {
           >
             {service.title}
           </h3>
-          <p className="text-sm opacity-70">{service.description}</p>
+          <p className="text-sm">{service.description}</p>
         </div>
       ))}
     </motion.div>

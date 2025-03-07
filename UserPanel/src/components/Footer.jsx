@@ -21,7 +21,7 @@ const Footer = () => {
   const { isDark } = useTheme();
 
   const quickLinks = [
-    { name: "Home", path: "/home", icon: <FaHome /> },
+    { name: "Home", path: "/", icon: <FaHome /> },
     { name: "About", path: "/about", icon: <FaUser /> },
     { name: "Portfolio", path: "/portfolio", icon: <FaBriefcase /> },
     { name: "Contact", path: "/contact", icon: <FaEnvelope /> },

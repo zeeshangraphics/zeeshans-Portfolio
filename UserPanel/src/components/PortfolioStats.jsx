@@ -89,7 +89,7 @@ function PortfolioStats() {
                 >
                   {stat.value}
                 </h3>
-                <p className="text-lg opacity-70">{stat.title}</p>
+                <p className="text-lg">{stat.title}</p>
               </motion.div>
             ))}
           </div>

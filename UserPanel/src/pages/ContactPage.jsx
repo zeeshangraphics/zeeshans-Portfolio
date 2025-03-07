@@ -185,7 +185,7 @@ const ContactPage = () => {
                     <motion.a
                       href="mailto:info.muhammadzeeshan53@gmail.com"
                       style={{ color: "var(--text-primary)" }}
-                      className="opacity-80 hover:opacity-100"
+                      className="opacity-80 hover:opacity-100 text-sm sm:text-base"
                       whileHover={{ x: 5, color: "var(--color-teal)" }}
                     >
                       info.muhammadzeeshan53@gmail.com

@@ -19,6 +19,18 @@ function HeroSection() {
         "/Watch1.jpg",
       ];
 
+      const carouselImages2 = [
+        "/Macbook.jpg",
+        "/Logo2.jpg",
+        "/Gamepad.jpg",
+        "/Logo9.jpg",
+        "/Mouse.jpg",
+        "/pic2.jpg",
+        "/pic3.jpg",
+        "/pic.jpg",
+        "/Watch1.jpg",
+      ];
+
     
 
   return (
@@ -54,7 +66,7 @@ function HeroSection() {
       <div
         className="w-full"
       >
-        <ContinuousImageCarousel images={carouselImages} isDark={isDark} />
+        <ContinuousImageCarousel firstRowImages={carouselImages} secondRowImages={carouselImages2} isDark={isDark} />
       </div>
     </div>
   </div>

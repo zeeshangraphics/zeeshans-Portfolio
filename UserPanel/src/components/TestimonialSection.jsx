@@ -90,7 +90,7 @@ function TestimonialSection() {
                 <p className="text-xs opacity-70">{testimonial.company}</p>
               </div>
             </div>
-            <p className="italic text-sm leading-relaxed">
+            <p className="italic text-sm">
               {testimonial.content}
             </p>
             <div className="absolute bottom-4 right-4 opacity-10">

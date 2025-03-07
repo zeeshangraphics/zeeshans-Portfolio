@@ -10,16 +10,22 @@ const Navbar = () => {
   const dropdownRef = useRef(null);
   const mobileDropdownRef = useRef(null);
 
-  const toggleMenu = () => setIsOpen(!isOpen);
-  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+  // Portfolio categories matching the database values
+  const portfolioCategories = [
+    { display: "Branding", value: "branding" },
+    { display: "Logo Design", value: "logo-design" },
+    { display: "Social Media Design", value: "social-media" },
+    { display: "Poster and Flyers", value: "poster-flyers" },
+  ];
+
+  const baseTextStyle = {
+    color: isDark ? "var(--color-grey)" : "var(--color-dark-grey)",
+    transition: "color 0.3s ease",
+  };
 
   const navLinkStyle = ({ isActive }) => ({
-    color: isActive
-      ? "var(--color-teal)"
-      : isDark
-      ? "var(--color-grey)"
-      : "var(--color-dark-grey)",
-    transition: "color 0.3s ease",
+    ...baseTextStyle,
+    color: isActive ? "var(--color-teal)" : baseTextStyle.color,
   });
 
   // Close dropdown when clicking outside
@@ -43,13 +49,45 @@ const Navbar = () => {
     document.documentElement.classList.toggle("dark-mode", isDark);
   }, [isDark]);
 
-  // Portfolio categories matching the database values
-  const portfolioCategories = [
-    { display: "Branding", value: "branding" },
-    { display: "Logo Design", value: "logo-design" },
-    { display: "Social Media Design", value: "social-media" },
-    { display: "Poster and Flyers", value: "poster-flyers" },
-  ];
+  const ThemeToggleButton = ({ className = "" }) => (
+    <button
+      onClick={toggleTheme}
+      className={`p-2 rounded-full transition-colors duration-200 ${className}`}
+      style={{
+        color: "var(--text-primary)",
+        border: `1px solid var(--color-teal)`,
+        backgroundColor: isDark ? "transparent" : "white",
+      }}
+      aria-label="Toggle theme"
+    >
+      {isDark ? (
+        <Sun className="w-5 h-5" style={{ color: "var(--color-teal)" }} />
+      ) : (
+        <Moon className="w-5 h-5" style={{ color: "var(--color-teal)" }} />
+      )}
+    </button>
+  );
+
+  const PortfolioLinks = ({ isMobile = false, closeMenu = null }) => (
+    <>
+      {portfolioCategories.map((category) => (
+        <Link
+          key={category.value}
+          to={`/portfolio/${category.value}`}
+          style={baseTextStyle}
+          className={`block transition-colors duration-200 hover:bg-[var(--color-teal)] hover:text-white ${
+            isMobile ? "py-3 px-3 border-b border-gray-200" : "px-4 py-3"
+          }`}
+          onClick={() => {
+            setIsDropdownOpen(false);
+            if (closeMenu) closeMenu();
+          }}
+        >
+          {category.display}
+        </Link>
+      ))}
+    </>
+  );
 
   return (
     <nav
@@ -65,26 +103,28 @@ const Navbar = () => {
         <Link
           to="/"
           className="text-2xl md:text-3xl font-bold z-10"
-          style={{
-            color: "var(--color-teal)",
-          }}
+          style={{ color: "var(--color-teal)" }}
         >
           Muhammad Zeeshan
         </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-8">
-          <NavLink to="/" style={navLinkStyle} className="transition">
+          <NavLink 
+            to="/" 
+            style={navLinkStyle} 
+            className="transition hover:text-[var(--color-teal)]"
+          >
             Home
           </NavLink>
 
           {/* Portfolio Dropdown */}
           <div className="relative" ref={dropdownRef}>
             <button
-              onClick={toggleDropdown}
-              className="flex items-center transition px-4 py-2 rounded-md"
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              className="flex items-center transition px-4 py-2 rounded-md hover:text-[var(--color-teal)]"
               style={{
-                color: isDark ? "var(--color-grey)" : "var(--color-dark-grey)",
+                ...baseTextStyle,
                 border: `2px solid var(--color-teal)`,
               }}
               aria-expanded={isDropdownOpen}
@@ -103,81 +143,43 @@ const Navbar = () => {
                 transformOrigin: "top",
               }}
             >
-              {portfolioCategories.map((category) => (
-                <NavLink
-                  key={category.value}
-                  to={`/portfolio/${category.value}`}
-                  style={navLinkStyle}
-                  className="block px-4 py-3 transition-colors duration-200 hover:bg-[var(--color-teal)] hover:text-white"
-                  onClick={() => setIsDropdownOpen(false)}
-                >
-                  {category.display}
-                </NavLink>
-              ))}
+              <PortfolioLinks />
             </div>
           </div>
 
-          <NavLink to="/services" style={navLinkStyle} className="transition">
+          <NavLink 
+            to="/services" 
+            style={navLinkStyle} 
+            className="transition hover:text-[var(--color-teal)]"
+          >
             Services
           </NavLink>
 
           <NavLink
             to="/about"
             style={navLinkStyle}
-            className="transition-colors"
+            className="transition-colors hover:text-[var(--color-teal)]"
           >
             About
           </NavLink>
 
-          <NavLink to="/contact" style={navLinkStyle} className="transition">
+          <NavLink 
+            to="/contact" 
+            style={navLinkStyle} 
+            className="transition hover:text-[var(--color-teal)]"
+          >
             Contact
           </NavLink>
 
           {/* Theme Toggle Button */}
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-full transition-colors duration-200"
-            style={{
-              color: "var(--text-primary)",
-              border: `1px solid var(--color-teal)`,
-              backgroundColor: isDark ? "transparent" : "white",
-            }}
-            aria-label="Toggle theme"
-          >
-            {isDark ? (
-              <Sun className="w-5 h-5" style={{ color: "var(--color-teal)" }} />
-            ) : (
-              <Moon
-                className="w-5 h-5"
-                style={{ color: "var(--color-teal)" }}
-              />
-            )}
-          </button>
+          <ThemeToggleButton />
         </div>
 
         {/* Mobile Menu Buttons */}
         <div className="flex md:hidden items-center space-x-3">
+          <ThemeToggleButton />
           <button
-            onClick={toggleTheme}
-            className="p-2 rounded-full transition-colors duration-200"
-            style={{
-              color: "var(--text-primary)",
-              border: `1px solid var(--color-teal)`,
-              backgroundColor: isDark ? "transparent" : "white",
-            }}
-            aria-label="Toggle theme"
-          >
-            {isDark ? (
-              <Sun className="w-5 h-5" style={{ color: "var(--color-teal)" }} />
-            ) : (
-              <Moon
-                className="w-5 h-5"
-                style={{ color: "var(--color-teal)" }}
-              />
-            )}
-          </button>
-          <button
-            onClick={toggleMenu}
+            onClick={() => setIsOpen(!isOpen)}
             className="p-2 rounded-full transition-colors duration-200"
             style={{
               color: "var(--text-primary)",
@@ -189,10 +191,7 @@ const Navbar = () => {
             {isOpen ? (
               <X className="w-5 h-5" style={{ color: "var(--color-teal)" }} />
             ) : (
-              <Menu
-                className="w-5 h-5"
-                style={{ color: "var(--color-teal)" }}
-              />
+              <Menu className="w-5 h-5" style={{ color: "var(--color-teal)" }} />
             )}
           </button>
         </div>
@@ -213,23 +212,19 @@ const Navbar = () => {
           <div className="flex flex-col p-4">
             <Link
               to="/"
-              className="py-3 transition-colors hover:text-teal-500"
-              style={{
-                color: isDark ? "var(--color-grey)" : "var(--color-dark-grey)",
-              }}
-              onClick={toggleMenu}
+              className="py-3 transition-colors hover:text-[var(--color-teal)]"
+              style={baseTextStyle}
+              onClick={() => setIsOpen(false)}
             >
               Home
             </Link>
 
             <div ref={mobileDropdownRef}>
               <button
-                onClick={toggleDropdown}
-                className="flex items-center w-full text-left py-3 transition-colors rounded-md my-2"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="flex items-center w-full text-left py-3 transition-colors rounded-md my-2 hover:text-[var(--color-teal)]"
                 style={{
-                  color: isDark
-                    ? "var(--color-grey)"
-                    : "var(--color-dark-grey)",
+                  ...baseTextStyle,
                   border: `2px solid var(--color-teal)`,
                   padding: "8px 12px",
                 }}
@@ -249,60 +244,21 @@ const Navbar = () => {
                   transformOrigin: "top",
                 }}
               >
-                {portfolioCategories.map((category) => (
-                  <Link
-                    key={category.value}
-                    to={`/portfolio/${category.value}`}
-                    className="block py-3 px-3 transition-colors hover:bg-teal-500 hover:text-white"
-                    style={{
-                      color: isDark
-                        ? "var(--color-grey)"
-                        : "var(--color-dark-grey)",
-                      borderBottom: "1px solid #eaeaea",
-                    }}
-                    onClick={() => {
-                      setIsDropdownOpen(false);
-                      setIsOpen(false);
-                    }}
-                  >
-                    {category.display}
-                  </Link>
-                ))}
+                <PortfolioLinks isMobile={true} closeMenu={() => setIsOpen(false)} />
               </div>
             </div>
 
-            <Link
-              to="/services"
-              className="py-3 transition-colors hover:text-teal-500"
-              style={{
-                color: isDark ? "var(--color-grey)" : "var(--color-dark-grey)",
-              }}
-              onClick={toggleMenu}
-            >
-              Services
-            </Link>
-
-            <Link
-              to="/about"
-              className="py-3 transition-colors hover:text-teal-500"
-              style={{
-                color: isDark ? "var(--color-grey)" : "var(--color-dark-grey)",
-              }}
-              onClick={toggleMenu}
-            >
-              About
-            </Link>
-
-            <Link
-              to="/contact"
-              className="py-3 transition-colors hover:text-teal-500"
-              style={{
-                color: isDark ? "var(--color-grey)" : "var(--color-dark-grey)",
-              }}
-              onClick={toggleMenu}
-            >
-              Contact
-            </Link>
+            {["services", "about", "contact"].map((path) => (
+              <Link
+                key={path}
+                to={`/${path}`}
+                className="py-3 transition-colors hover:text-[var(--color-teal)] capitalize"
+                style={baseTextStyle}
+                onClick={() => setIsOpen(false)}
+              >
+                {path}
+              </Link>
+            ))}
           </div>
         </div>
       </div>

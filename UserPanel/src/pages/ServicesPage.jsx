@@ -161,7 +161,7 @@ export default function ServicesPage() {
                 {plan.features.map((feature, idx) => (
                   <li
                     key={idx}
-                    className="flex items-start justify-start space-x-3 text-left"
+                    className="flex items-start justify-start space-x-3 text-left text-white"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
