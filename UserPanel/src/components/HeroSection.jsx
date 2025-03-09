@@ -38,10 +38,10 @@ function HeroSection() {
     className="min-h-screen w-full flex flex-col justify-center items-center overflow-hidden"
   >
     {/* Content wrapper */}
-    <div className="max-w-7xl w-full px-4 mx-auto flex flex-col items-center">
+    <div className="max-w-7xl w-full px-4 mx-auto flex flex-col items-center ">
       <div className="w-full mb-12">
         <div
-          className="max-w-3xl mx-auto md:mx-0"
+          className="max-w-3xl mx-auto md:mx-0 lg:pt-8"
         >
           <p className="text-lg sm:text-xl md:text-2xl font-medium text-center md:text-left">
             Hi there, I'm

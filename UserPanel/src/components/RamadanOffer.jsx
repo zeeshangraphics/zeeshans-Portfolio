@@ -57,19 +57,9 @@ const RamadanOffer = ({ isDark, offerActive, setOfferActive }) => {
     },
   };
 
-  // Calculate time remaining in Ramadan - using localStorage to persist the end time
   useEffect(() => {
-    // Try to get the end time from localStorage
-    let endTime = localStorage.getItem("ramadanOfferEndTime");
-
-    // If no end time is set in localStorage, create one and store it
-    if (!endTime) {
-      const initialTime = new Date();
-      initialTime.setDate(initialTime.getDate() + 21);
-      initialTime.setHours(initialTime.getHours() + 9);
-      endTime = initialTime.getTime();
-      localStorage.setItem("ramadanOfferEndTime", endTime);
-    }
+    const endDate = new Date(2025, 2, 31, 23, 59, 59); // March 31, 2025 at 23:59:59
+    const endTime = endDate.getTime();
 
     const timerInterval = setInterval(() => {
       const now = new Date();
