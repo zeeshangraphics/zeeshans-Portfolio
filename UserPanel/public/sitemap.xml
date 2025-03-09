@@ -1,48 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://muhammadzeeshan.com/</loc>
+        <loc>https://zeeshangraphics.com/</loc>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://tips.academy/news-and-events</loc>
+        <loc>https://zeeshangraphics.com/portfolio/branding</loc>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://tips.academy/apply-online</loc>
-        <changefreq>monthly</changefreq>
+        <loc>https://zeeshangraphics.com/portfolio/logo-design</loc>
+        <changefreq>daily</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://tips.academy/downloads</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
+        <loc>https://zeeshangraphics.com/social-media</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://tips.academy/contact-us</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
+        <loc>https://zeeshangraphics.com/poster-flyers</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://tips.academy/achievements</loc>
+        <loc>https://zeeshangraphics.com/services</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://tips.academy/staff</loc>
+        <loc>https://zeeshangraphics.com/about</loc>
         <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
+        <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://tips.academy/gallery</loc>
+        <loc>https://zeeshangraphics.com/contact</loc>
         <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://tips.academy/campus</loc>
-        <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
+        <priority>0.8</priority>
     </url>
 </urlset>

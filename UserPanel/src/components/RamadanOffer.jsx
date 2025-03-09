@@ -127,7 +127,7 @@ const RamadanOffer = ({ isDark, offerActive, setOfferActive }) => {
                 style={{ borderColor: "var(--color-teal)" }}
               >
                 <p
-                  className="text-xs sm:text-sm uppercase font-bold mb-1 sm:mb-2"
+                  className="text-xs sm:text-sm uppercase font-bold"
                   style={{ color: "var(--color-teal)" }}
                 >
                   Limited Time Offer

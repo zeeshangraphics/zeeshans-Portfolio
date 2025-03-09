@@ -25,7 +25,7 @@ function PortfolioStats() {
         },
         {
           title: "Years of Experience",
-          value: "5+",
+          value: "3+",
           icon: <Clock size={24} />,
         },
         {

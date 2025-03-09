@@ -9,6 +9,7 @@ import {
   FaPhone,
   FaTiktok,
   FaPalette,
+  FaPinterest,
 } from "react-icons/fa";
 import {
   FaFacebookF,
@@ -50,23 +51,33 @@ const Footer = () => {
     {
       name: "Facebook",
       icon: <FaFacebookF />,
-      link: "https://www.facebook.com/",
+      link: "https://www.facebook.com/share/15Tv8j1w7e/",
     },
     {
       name: "Instagram",
       icon: <FaInstagram />,
-      link: "https://www.instagram.com/v_isualgraphics/",
+      link: "https://www.instagram.com/v_isualgraphics?igsh=ZHY2djA0dmU3dzZk",
     },
     {
       name: "Tiktok",
       icon: <FaTiktok />,
-      link: "https://www.twitter.com/yourprofile",
+      link: "https://www.tiktok.com/@visualgraphics_?_t=ZS-8uXgObtmvr8&_r=1",
     },
     {
       name: "LinkedIn",
       icon: <FaLinkedinIn />,
-      link: "https://www.linkedin.com/in/yourprofile",
+      link: "https://www.linkedin.com/in/muhammadzeeshan42",
     },
+    {
+      name: "Twitter",
+      icon: <FaTwitter />,
+      link: "https://x.com/v_isualgraphics?t=IL2uyyUY2lsux-rO4Z3_KA&s=09",
+    },
+    {
+      name: "Pinterest",
+      icon: <FaPinterest />,
+      link: "https://pin.it/17TpZdny1",
+    }
   ];
 
   return (

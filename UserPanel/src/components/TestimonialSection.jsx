@@ -12,28 +12,27 @@ function TestimonialSection() {
     
       const testimonials = [
         {
-          name: "Sarah Johnson",
-          role: "Marketing Director",
-          company: "Elevate Brands",
+          name: "Aznair Tariq",
+          role: "CEO",
+          company: "Lead Studio",
           content:
-            "Muhammad's eye for detail transformed our brand identity. The logo design perfectly captures our company ethos while remaining timeless and versatile.",
-          initials: "SJ",
+            "I hired Muhammad Zeeshan to design my Linkedin banner and our agency banner, and he did an excellent job. His creativity, proffeionalism, and attention to detail are outstanding. I highly recommend him.",
+          initials: "AT",
         },
         {
-          name: "David Chen",
-          role: "Startup Founder",
-          company: "TechSphere",
-          content:
-            "Working with Muhammad was effortless. He took my vague ideas and transformed them into a cohesive visual identity that has helped my startup stand out in a crowded market.",
-          initials: "DC",
+          name: "Najam ul Sehar",
+          role: "Blog Writer",
+          company: "Freelancer",
+          content: "Zeeshan is a great graphic designer. I really appericiate his designing skills. I recommend zeeshan to alll the people out there who need outclass graphics and designing services. I would definitely want to work again with him",
+          initials: "NS",
         },
         {
-          name: "Amina Patel",
+          name: "Muhammad Rizwan",
           role: "Creative Director",
           company: "Artisan Studios",
           content:
             "The social media designs Muhammad created for our campaign exceeded expectations. Our engagement increased by 47% in the first month of implementation.",
-          initials: "AP",
+          initials: "MR",
         },
         {
           name: "Michael Rodriguez",

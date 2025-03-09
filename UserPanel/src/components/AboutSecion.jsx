@@ -25,7 +25,7 @@ function AboutSecion() {
                 style={{ borderColor: "var(--color-teal)" }}
               >
                 <img
-                  src="https://i.pinimg.com/564x/bd/da/b7/bddab779c1b5e0bded2f6e4face72dfd.jpg"
+                  src="/profile.jpg"
                   alt="Muhammad Zeeshan"
                   className="absolute inset-0 w-full h-full object-cover"
                   loading="eager"
