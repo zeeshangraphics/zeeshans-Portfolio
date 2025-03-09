@@ -18,7 +18,7 @@ const PortfolioPage = () => {
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
-  const imagesPerPage = 6;
+  const imagesPerPage = 12;
 
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
