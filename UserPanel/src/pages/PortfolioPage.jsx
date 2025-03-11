@@ -183,7 +183,7 @@ const PortfolioPage = () => {
       <div className="w-24 h-1 bg-[var(--color-teal)] mx-auto mb-12"></div>
 
       {loading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 relative z-40">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 relative z-40">
           {[...Array(6)].map((_, index) => (
             <motion.div
               key={index}
@@ -199,7 +199,7 @@ const PortfolioPage = () => {
         <p>No items found in this category.</p>
       ) : (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 relative z-40">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 relative z-40">
             {currentImages.map((work, index) => (
               <div
                 key={work.$id}
