@@ -3,11 +3,19 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Client, Databases, Query } from "appwrite";
 import { motion } from "framer-motion";
 
-const SkeletonLoader = () => (
-  <div className="overflow-hidden rounded-lg shadow-md mb-4">
-    <div className="aspect-square w-full bg-gray-200 dark:bg-gray-700 animate-pulse"></div>
-  </div>
-);
+const SkeletonLoader = ({ category }) => {
+  // Different aspect ratios for skeleton loaders based on category
+  const aspectRatioClass = 
+    category === "poster-flyers" ? "aspect-[5.83/8.27]" : 
+    category === "branding" ? "aspect-[7/5]" : 
+    "aspect-square";
+
+  return (
+    <div className="overflow-hidden rounded-lg shadow-md mb-4">
+      <div className={`w-full ${aspectRatioClass} bg-gray-200 dark:bg-gray-700 animate-pulse`}></div>
+    </div>
+  );
+};
 
 const PortfolioPage = () => {
   const [works, setWorks] = useState([]);
@@ -22,6 +30,7 @@ const PortfolioPage = () => {
 
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   // Touch swipe states
   const [touchStart, setTouchStart] = useState(null);
@@ -32,6 +41,18 @@ const PortfolioPage = () => {
     "logo-design": "Logo Design",
     "social-media": "Social Media Design",
     "poster-flyers": "Poster and Flyers",
+  };
+
+  // Get aspect ratio class based on category
+  const getAspectRatioClass = (categoryName) => {
+    switch(categoryName) {
+      case "poster-flyers":
+        return "aspect-[5.83/8.27]";
+      case "branding":
+        return "aspect-[7/5]";
+      default:
+        return "aspect-square";
+    }
   };
 
   const displayCategory = categoryDisplayNames[category] || "";
@@ -90,6 +111,7 @@ const PortfolioPage = () => {
   const openLightbox = (index) => {
     setCurrentImageIndex(index);
     setLightboxOpen(true);
+    setImageLoaded(false); // Reset image loaded state
     // Prevent scrolling when lightbox is open
     document.body.style.overflow = "hidden";
   };
@@ -103,6 +125,7 @@ const PortfolioPage = () => {
   // Navigation functions for lightbox
   const goToPrevious = (e) => {
     e.stopPropagation();
+    setImageLoaded(false); // Reset image loaded state
     setCurrentImageIndex((prevIndex) =>
       prevIndex === 0 ? works.length - 1 : prevIndex - 1
     );
@@ -110,6 +133,7 @@ const PortfolioPage = () => {
 
   const goToNext = (e) => {
     e.stopPropagation();
+    setImageLoaded(false); // Reset image loaded state
     setCurrentImageIndex((prevIndex) =>
       prevIndex === works.length - 1 ? 0 : prevIndex + 1
     );
@@ -123,10 +147,12 @@ const PortfolioPage = () => {
       if (e.key === "Escape") {
         closeLightbox();
       } else if (e.key === "ArrowLeft") {
+        setImageLoaded(false); // Reset image loaded state
         setCurrentImageIndex((prevIndex) =>
           prevIndex === 0 ? works.length - 1 : prevIndex - 1
         );
       } else if (e.key === "ArrowRight") {
+        setImageLoaded(false); // Reset image loaded state
         setCurrentImageIndex((prevIndex) =>
           prevIndex === works.length - 1 ? 0 : prevIndex + 1
         );
@@ -161,6 +187,11 @@ const PortfolioPage = () => {
     }
   };
 
+  // Handle image load in lightbox
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
+
   if (error) {
     return (
       <div className="container section flex justify-center items-center min-h-screen w-full max-w-7xl mx-auto px-4">
@@ -191,7 +222,7 @@ const PortfolioPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <SkeletonLoader />
+              <SkeletonLoader category={category} />
             </motion.div>
           ))}
         </div>
@@ -209,7 +240,7 @@ const PortfolioPage = () => {
                 <img
                   src={work.imageUrl}
                   alt={work.title}
-                  className="w-full aspect-square object-cover"
+                  className={`w-full ${getAspectRatioClass(category)} object-cover`}
                   loading="lazy"
                 />
               </div>
@@ -244,7 +275,7 @@ const PortfolioPage = () => {
         </>
       )}
 
-      {/* Lightbox */}
+      {/* Lightbox - Now showing original image size */}
       {lightboxOpen && works.length > 0 && (
         <div
           className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center"
@@ -253,6 +284,13 @@ const PortfolioPage = () => {
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
+          {/* Loading spinner */}
+          {!imageLoaded && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div>
+            </div>
+          )}
+          
           {/* Close button */}
           <button
             className="absolute top-4 right-4 text-white text-4xl z-10 hover:text-gray-300"
@@ -276,14 +314,15 @@ const PortfolioPage = () => {
             &#8250;
           </button>
 
-          {/* Current image */}
-          <div className="max-w-4xl max-h-screen p-4">
-            <img
-              src={works[currentImageIndex].imageUrl}
-              alt={works[currentImageIndex].title}
-              className="max-h-full max-w-full object-contain mx-auto"
-            />
-          </div>
+          {/* Current image - No aspect ratio constraints in lightbox */}
+          <div className="p-4 flex items-center justify-center w-full h-full">
+  <img
+    src={works[currentImageIndex].imageUrl}
+    alt={works[currentImageIndex].title}
+    className="max-w-full max-h-full"
+    onLoad={handleImageLoad}
+  />
+</div>
         </div>
       )}
     </div>

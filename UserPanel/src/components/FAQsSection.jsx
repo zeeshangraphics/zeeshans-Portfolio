@@ -14,19 +14,19 @@ function FAQsSection() {
     const faqsData = [
         {
             question: "What design services do you offer?",
-            answer: "I offer a comprehensive range of design services including branding and identity design, social media graphics, website UI/UX design, print materials, and marketing collateral. Each project is approached with creativity and attention to detail to ensure your visual communication stands out."
+            answer: "I offer logo design, brand identity design, social media branding, and visual branding services. Every project is tailored to match the brand’s unique identity and vision."
         },
         {
-            question: "How does your design process work?",
-            answer: "My design process begins with understanding your needs through an initial consultation. Then I research and develop concepts, present drafts for your feedback, refine the chosen direction, and deliver final files. Throughout the process, I maintain open communication to ensure your vision is brought to life."
+            question: "How long does it take to complete a logo or branding project?",
+            answer: "The timeline depends on the complexity of the project and client requirements. Typically, a logo design project takes 3-7 days, while a full branding project can take 1-2 weeks."
         },
         {
-            question: "What is your typical turnaround time?",
-            answer: "Turnaround time varies based on project complexity. Small projects like social media graphics may take 2-3 business days, while comprehensive branding packages might require 2-3 weeks. I'll provide a specific timeline during our initial consultation based on your project requirements and current workload."
+            question: "Do you offer revisions?",
+            answer: "Yes, I provide multiple revisions to ensure the design meets your expectations. Each package includes a specific number of revisions."
         },
         {
-            question: "Do you offer revisions to your designs?",
-            answer: "Yes, I include revision rounds with all projects. Most packages include 2-3 rounds of revisions to ensure you're completely satisfied with the final result. If additional revisions are needed beyond the included rounds, they can be arranged at an hourly rate."
+            question: "What is the process for getting a brand identity designed?",
+            answer: "First, I gather details about your brand and vision. Then, I conduct research and brainstorming to develop design concepts. Based on your feedback, I refine the design and deliver the final files."
         }
     ];
 

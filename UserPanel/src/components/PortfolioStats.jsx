@@ -15,12 +15,12 @@ function PortfolioStats() {
     const portfolioStats = [
         {
           title: "Happy Clients",
-          value: "50+",
+          value: "100+",
           icon: <Users size={24} />,
         },
         {
           title: "Projects Completed",
-          value: "100+",
+          value: "300+",
           icon: <Plus size={24} />,
         },
         {

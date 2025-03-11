@@ -357,9 +357,6 @@ const ContactPage = () => {
           </motion.div>
         </motion.form>
       </div>
-        
-        {/* FAQs Section */}
-        <FAQsSection />
     </motion.div>
   );
 };
