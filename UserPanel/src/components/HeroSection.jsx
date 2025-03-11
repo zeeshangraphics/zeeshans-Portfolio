@@ -9,7 +9,6 @@ function HeroSection() {
 
     const carouselImages = [
         "/Macbook.jpg",
-        "/Logo2.jpg",
         "/Gamepad.jpg",
         "/Logo9.jpg",
         "/Mouse.jpg",
@@ -21,7 +20,6 @@ function HeroSection() {
 
       const carouselImages2 = [
         "/Macbook.jpg",
-        "/Logo2.jpg",
         "/Gamepad.jpg",
         "/Logo9.jpg",
         "/Mouse.jpg",
