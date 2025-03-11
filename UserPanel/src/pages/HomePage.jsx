@@ -6,6 +6,7 @@ import ServicesSection from "../components/ServicesSection";
 import TestimonialSection from "../components/TestimonialSection";
 import PortfolioStats from "../components/PortfolioStats";
 import CTASection from "../components/CTASection";
+import FAQsSection from "../components/FAQsSection";
 
 const HomePage = () => {
   const { isDark } = useTheme();
@@ -23,6 +24,7 @@ const HomePage = () => {
       <ServicesSection />
       <TestimonialSection />
       <PortfolioStats />
+      <FAQsSection />
       <CTASection />
     </main>
   );

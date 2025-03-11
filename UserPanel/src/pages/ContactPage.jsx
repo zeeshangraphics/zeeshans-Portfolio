@@ -3,6 +3,7 @@ import { useTheme } from "../context/ThemeContext";
 import Swal from "sweetalert2";
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
+import FAQsSection from "../components/FAQsSection";
 
 const ContactPage = () => {
   const { isDark } = useTheme();
@@ -356,6 +357,9 @@ const ContactPage = () => {
           </motion.div>
         </motion.form>
       </div>
+        
+        {/* FAQs Section */}
+        <FAQsSection />
     </motion.div>
   );
 };
