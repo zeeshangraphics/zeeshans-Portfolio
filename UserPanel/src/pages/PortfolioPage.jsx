@@ -184,7 +184,7 @@ const PortfolioPage = () => {
 
       {loading ? (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 relative z-40">
-          {[...Array(6)].map((_, index) => (
+          {[...Array(8)].map((_, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
