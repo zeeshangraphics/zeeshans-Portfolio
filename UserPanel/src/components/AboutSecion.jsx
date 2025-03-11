@@ -55,7 +55,7 @@ function AboutSecion() {
                 branding, web design, or a complete visual identity, I'm here to
                 help you stand out in today's competitive market.
               </p>
-              <p className="text-md md:text-md lg:text-xl leading-relaxed opacity-80">
+              <p className="text-md md:text-md lg:text-2xl leading-relaxed">
                 With years of experience and a keen eye for detail, I craft
                 designs that resonate with your audience and communicate your
                 brand's unique story in a compelling way.
