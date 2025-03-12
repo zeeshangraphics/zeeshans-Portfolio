@@ -82,7 +82,7 @@ const Footer = () => {
 
   return (
     <footer
-      className="py-12"
+      className="pt-12"
       style={{
         backgroundColor: isDark ? "#1a1a1a" : "#f0f0f0",
         color: "var(--text-primary)",
@@ -261,11 +261,23 @@ const Footer = () => {
 
         {/* Copyright Section */}
         <div
-          className="mt-12 pt-6 border-t text-center"
+          className="mt-12 py-6 border-t text-center"
           style={{ borderColor: isDark ? "#2a2a2a" : "#e0e0e0" }}
         >
-          <p className="opacity-70 text-sm md:text-base">
+          <p className="text-white/70 text-sm md:text-base">
             © {new Date().getFullYear()} Muhammad Zeeshan. All rights reserved.
+          </p>
+          {/* Developed by part with link */}
+          <p className="text-white/70 text-sm md:text-base">
+            Developed by{" "}
+            <a
+              href="https://najamulhassan.tech"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[var(--color-teal)] hover:underline"
+            >
+              Najam Ul Hassan
+            </a>
           </p>
         </div>
       </div>
